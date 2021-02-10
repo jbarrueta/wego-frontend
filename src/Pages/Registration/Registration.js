@@ -4,7 +4,7 @@ import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
 
 const Registration = () => {
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
 
     const confPasswd = e.target[4].value;
@@ -16,12 +16,11 @@ const Registration = () => {
       passwd: e.target[3].value,
     };
     if (registrationObj.passwd === confPasswd) {
-      const response = axios.post("/registration", registrationObj);
-      console.log(response);
+      const response = await axios.post("/registration", registrationObj);
+      alert(response.data.data);
     } else {
       alert("Passwords do not match!");
     }
-    console.log(registrationObj);
   };
 
   return (
