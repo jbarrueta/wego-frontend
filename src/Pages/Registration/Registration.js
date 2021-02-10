@@ -7,15 +7,17 @@ const Registration = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
+    const confPasswd = e.target[4].value;
+
     const registrationObj = {
       fName: e.target[0].value,
       lName: e.target[1].value,
       email: e.target[2].value,
       passwd: e.target[3].value,
-      confPasswd: e.target[4].value,
     };
-    if (registrationObj.passwd === registrationObj.confPasswd) {
-      axios.post("/registration", registrationObj);
+    if (registrationObj.passwd === confPasswd) {
+      const response = axios.post("/registration", registrationObj);
+      console.log(response);
     } else {
       alert("Passwords do not match!");
     }
