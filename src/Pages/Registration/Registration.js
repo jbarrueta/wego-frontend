@@ -3,6 +3,22 @@ import axios from "axios";
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
 
+const register = () => {
+  try {
+    const response = await axios.post("/registration", registrationObj);
+    //reponse.data.data => { email: email, id:id }
+    const customer = response.data.data
+
+    // TODO: create user session in cookies
+    // createSession(customer);
+
+    // TODO: user is authorized if no error is caught, re-route to login
+  }
+  catch (err) {
+    alert(err.response.data.msg);
+  }
+}
+
 const Registration = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -16,8 +32,7 @@ const Registration = () => {
       passwd: e.target[3].value,
     };
     if (registrationObj.passwd === confPasswd) {
-      const response = await axios.post("/registration", registrationObj);
-      alert(response.data.data);
+      register();
     } else {
       alert("Passwords do not match!");
     }
