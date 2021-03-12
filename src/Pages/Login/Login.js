@@ -5,7 +5,7 @@ import { useHistory } from "react-router";
 
 const login = async (loginObj, history) => {
   try {
-    const response = await axios.post("/login", loginObj);
+    const response = await axios.post("/api/login", loginObj);
     console.log(response.data.data);
     history.push("/");
   } catch (err) {

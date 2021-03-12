@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 
 const register = async (registrationObj, history) => {
   try {
-    const response = await axios.post("/registration", registrationObj);
+    const response = await axios.post("/api/registration", registrationObj);
 
     //reponse.data.data => { email: email, id:id }
     const customer = response.data.data;
