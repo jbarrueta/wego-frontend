@@ -1,8 +1,8 @@
 .app {
-  min-height: 100vh;
+  /* min-height: 100vh;
   background-image: url(./img_233291.png);
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
+  background-position: center;
+  background-repeat: no-repeat; 
   background-size: fill;
-  background-size: contain;
+  background-size: contain; */
 }

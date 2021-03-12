@@ -1,17 +1,20 @@
 import axios from "axios";
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
+import { useHistory } from "react-router";
 
-const login = async (loginObj) => {
+const login = async (loginObj, history) => {
   try {
     const response = await axios.post("/login", loginObj);
     console.log(response.data.data);
+    history.push("/");
   } catch (err) {
     alert(err.response.data.data.msg);
   }
 };
 
 const Login = () => {
+  const history = useHistory();
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -20,7 +23,7 @@ const Login = () => {
       passwd: e.target[1].value,
     };
 
-    login(loginObj);
+    login(loginObj, history);
   };
 
   return (

@@ -2,8 +2,9 @@
 import axios from "axios";
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
+import { useHistory } from "react-router";
 
-const register = async (registrationObj) => {
+const register = async (registrationObj, history) => {
   try {
     const response = await axios.post("/registration", registrationObj);
 
@@ -15,12 +16,14 @@ const register = async (registrationObj) => {
     // createSession(customer);
 
     // TODO: user is authorized if no error is caught, re-route to login
+    history.push("/");
   } catch (err) {
     alert(err.response.data.data.msg);
   }
 };
 
 const Registration = () => {
+  const history = useHistory();
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -33,7 +36,7 @@ const Registration = () => {
       passwd: e.target[3].value,
     };
     if (registrationObj.passwd === confPasswd) {
-      register(registrationObj);
+      register(registrationObj, history);
     } else {
       alert("Passwords do not match!");
     }
