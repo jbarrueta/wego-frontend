@@ -21,7 +21,7 @@ export default function HomePage() {
             if you are new to our system, sign up to start an order
           </p>
           <Button
-            btnName="Sign in"
+            btnName="Sign Up"
             onClick={() => onClickHandler("/registration")}
             style={{ marginTop: "91px" }}
           />
@@ -33,7 +33,7 @@ export default function HomePage() {
             orders and create new ones! If you have not already set up an
             account, please select “Sign up”.
           </p>
-          <Button btnName="Log in" onClick={() => onClickHandler("/login")} />
+          <Button btnName="Log In" onClick={() => onClickHandler("/login")} />
         </div>
       </div>
     </div>

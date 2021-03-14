@@ -66,7 +66,7 @@ class App extends Component {
         <Route path="/login" component={() => <Login login={this.login} />} />
         <Route
           path="/registration"
-          component={() => <Registration registration={this.register} />}
+          component={() => <Registration register={this.register} />}
         />
       </div>
     );
