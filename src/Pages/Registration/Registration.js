@@ -3,26 +3,9 @@ import axios from "axios";
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
-const register = async (registrationObj, history) => {
-  try {
-    const response = await axios.post("/api/registration", registrationObj);
-
-    //reponse.data.data => { email: email, id:id }
-    const customer = response.data.data;
-    console.log(response.data.data);
-
-    // TODO: create user session in cookies
-    // createSession(customer);
-
-    // TODO: user is authorized if no error is caught, re-route to login
-    history.push("/");
-  } catch (err) {
-    alert(err.response.data.data.msg);
-  }
-};
-
-const Registration = () => {
+const Registration = ({ register }) => {
   const history = useHistory();
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -44,12 +27,7 @@ const Registration = () => {
 
   return (
     <div className="registration">
-      <h1 className="tc f2 light-green br-pill bg-black-80 pa1 mh6 ">
-        Registration
-      </h1>
-      <br />
-      <br />
-      <br />
+      <p className="tc primarySize mt5">Registration</p>
       <div className="tc">
         <form onSubmit={onSubmitHandler}>
           <Input type="text" id="fName" placeholder="First Name" />
@@ -67,6 +45,12 @@ const Registration = () => {
           <br />
           <br />
           <Button type="submit" id="registerBtn" btnName="Register!" />
+          <p className="opaqueFont">
+            Already have an account?{" "}
+            <Link to="/login" className="link blue pointer dim">
+              Login here
+            </Link>
+          </p>
         </form>
       </div>
     </div>

@@ -2,18 +2,9 @@ import axios from "axios";
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
-const login = async (loginObj, history) => {
-  try {
-    const response = await axios.post("/api/login", loginObj);
-    console.log(response.data.data);
-    history.push("/");
-  } catch (err) {
-    alert(err.response.data.data.msg);
-  }
-};
-
-const Login = () => {
+const Login = ({ login }) => {
   const history = useHistory();
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -28,10 +19,7 @@ const Login = () => {
 
   return (
     <div className="login">
-      <h1 className="tc f2 light-green br-pill bg-black-80 pa1 mh6 ">Login</h1>
-      <br />
-      <br />
-      <br />
+      <p className="tc primarySize pa1 mt5 ">Login</p>
       <div className="tc">
         <form onSubmit={onSubmitHandler}>
           <Input type="text" id="email" placeholder="Email" />
@@ -39,7 +27,14 @@ const Login = () => {
           <Input type="password" id="passwd" placeholder="Password" />
           <br />
           <br />
-          <Button type="submit" id="loginBtn" btnName="Login!" />
+          <br />
+          <Button type="submit" id="loginBtn" btnName="Login" />
+          <p className="opaqueFont">
+            Don't have an account?{" "}
+            <Link to="/registration" className="link blue pointer dim">
+              Register here
+            </Link>
+          </p>
         </form>
       </div>
     </div>

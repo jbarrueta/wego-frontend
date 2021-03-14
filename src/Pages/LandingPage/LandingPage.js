@@ -1,7 +1,8 @@
 import { useHistory } from "react-router";
 import Button from "../../Components/Button/Button";
 
-const LandingPage = () => {
+const LandingPage = ({ user }) => {
+  console.log(user);
   const history = useHistory();
 
   const onClickHandler = (route) => {
@@ -10,7 +11,7 @@ const LandingPage = () => {
 
   return (
     <div className="landingPage">
-      <h1 className="tc f2 light-green br-pill bg-black-80 pa1 mh6 ">Hello</h1>
+      <p className="tc primarySize">{`Welcome back ${user.fName}`}</p>
       <br />
       <br />
       <br />

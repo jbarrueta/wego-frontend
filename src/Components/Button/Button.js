@@ -1,4 +1,5 @@
 import React from "react";
+import "./Button.css";
 
 const Button = ({ type, id, btnName, onClick, style, classNames }) => {
   return (
@@ -6,7 +7,7 @@ const Button = ({ type, id, btnName, onClick, style, classNames }) => {
       <button
         type={type}
         id={id}
-        className={`b f4 br3 light-green ba bw2 b--black-80 bg-black-80 grow pointer ${classNames}`}
+        className={`secondarySize button ba pv2 ph5 br-pill grow pointer ${classNames}`}
         onClick={onClick}
         style={style}
       >
