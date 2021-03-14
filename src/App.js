@@ -18,7 +18,7 @@ class App extends Component {
 
   login = async (loginObj, history) => {
     try {
-      const response = await axios.post("/login", loginObj);
+      const response = await axios.post("/api/login", loginObj);
       console.log(response.data.data);
       this.setState({ user: response.data.data }, () => {
         history.push("/landing");
@@ -30,7 +30,7 @@ class App extends Component {
 
   register = async (registrationObj, history) => {
     try {
-      const response = await axios.post("/registration", registrationObj);
+      const response = await axios.post("/api/registration", registrationObj);
 
       //reponse.data.data => { email: email, id:id }
       const customer = response.data.data;
