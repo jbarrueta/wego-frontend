@@ -40,7 +40,9 @@ class App extends Component {
       // createSession(customer);
 
       // TODO: user is authorized if no error is caught, re-route to login
-      history.push("/landing");
+      this.setState({ user: response.data.data }, () => {
+        history.push("/landing");
+      });
     } catch (err) {
       alert(err.response.data.data.msg);
     }
