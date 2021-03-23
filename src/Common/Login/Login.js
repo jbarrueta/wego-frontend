@@ -11,7 +11,7 @@ const Login = ({ login }) => {
 
     const loginObj = {
       email: e.target[0].value,
-      passwd: e.target[1].value,
+      password: e.target[1].value,
     };
 
     login(loginObj, history);
@@ -24,7 +24,7 @@ const Login = ({ login }) => {
         <form onSubmit={onSubmitHandler}>
           <Input type="text" id="email" placeholder="Email" />
           <br />
-          <Input type="password" id="passwd" placeholder="Password" />
+          <Input type="password" id="password" placeholder="Password" />
           <br />
           <br />
           <br />

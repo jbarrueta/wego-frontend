@@ -11,7 +11,7 @@ const LandingPage = ({ user }) => {
 
   return (
     <div className="landingPage">
-      <p className="tc primarySize">{`Welcome back ${user.fName}`}</p>
+      <p className="tc primarySize">{`Welcome back ${user.firstName}`}</p>
       <br />
       <br />
       <br />

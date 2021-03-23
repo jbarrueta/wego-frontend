@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router";
 import Button from "../../Components/Button/Button";
+import "./HomePage.css";
 
 export default function HomePage() {
   const history = useHistory();
@@ -13,7 +14,7 @@ export default function HomePage() {
         Welcome to <span className="satisfy">WeGo</span>
       </p>
       <div className="flex justify-center tc">
-        <div className="w-40 ph4 br bw1 b--black-20" style={{ width: "368px" }}>
+        <div className="w-400px ph4 br bw1 b--black-20">
           <p className="primarySize" className="primarySize">
             Sign Up
           </p>
@@ -23,10 +24,10 @@ export default function HomePage() {
           <Button
             btnName="Sign Up"
             onClick={() => onClickHandler("/registration")}
-            style={{ marginTop: "91px" }}
+            classNames="mt5"
           />
         </div>
-        <div className="ph4" style={{ width: "368px" }}>
+        <div className="ph4 w-400px">
           <p className="primarySize">Returning user login</p>
           <p className="secondarySize opaqueFont">
             Enter your previously created username and password to view previous

@@ -10,15 +10,15 @@ const Registration = ({ register }) => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const confPasswd = e.target[4].value;
+    const confPassword = e.target[4].value;
 
     const registrationObj = {
-      fName: e.target[0].value,
-      lName: e.target[1].value,
+      firstName: e.target[0].value,
+      lastName: e.target[1].value,
       email: e.target[2].value,
-      passwd: e.target[3].value,
+      password: e.target[3].value,
     };
-    if (registrationObj.passwd === confPasswd) {
+    if (registrationObj.password === confPassword) {
       register(registrationObj, history);
     } else {
       alert("Passwords do not match!");
@@ -30,16 +30,16 @@ const Registration = ({ register }) => {
       <p className="tc primarySize mt5">Registration</p>
       <div className="tc">
         <form onSubmit={onSubmitHandler}>
-          <Input type="text" id="fName" placeholder="First Name" />
-          <Input type="text" id="lName" placeholder="Last Name" />
+          <Input type="text" id="firstName" placeholder="First Name" />
+          <Input type="text" id="lastName" placeholder="Last Name" />
           <br />
           <Input type="text" id="email" placeholder="Email" />
           <br />
-          <Input type="password" id="passwd" placeholder="Password" />
+          <Input type="password" id="password" placeholder="Password" />
           <br />
           <Input
             type="password"
-            id="confPasswd"
+            id="confPassword"
             placeholder="Confirm Password"
           />
           <br />

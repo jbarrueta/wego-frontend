@@ -1,10 +1,10 @@
 import "./App.css";
 import { Redirect, Route } from "react-router-dom";
-import Login from "./Pages/Login/Login";
-import Registration from "./Pages/Registration/Registration";
-import LandingPage from "./Pages/LandingPage/LandingPage";
+import Login from "./Common/Login/Login";
+import Registration from "./Common/Registration/Registration";
+import LandingPage from "./Demand/LandingPage/LandingPage";
 import NavBar from "./Components/NavBar/NavBar";
-import HomePage from "./Pages/HomePage/HomePage";
+import HomePage from "./Common/HomePage/HomePage";
 import { Component } from "react";
 import axios from "axios";
 
