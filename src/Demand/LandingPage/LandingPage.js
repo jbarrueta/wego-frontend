@@ -1,8 +1,7 @@
 import { useHistory } from "react-router";
 import Button from "../../Components/Button/Button";
 
-const LandingPage = ({ user }) => {
-  console.log(user);
+const LandingPage = ({ user, logout }) => {
   const history = useHistory();
 
   const onClickHandler = (route) => {
@@ -16,24 +15,15 @@ const LandingPage = ({ user }) => {
       <br />
       <br />
       <div className="tc">
-        <form onSubmit={onclick}>
-          <br />
-          <Button
-            type="onClick"
-            id="plugInBtn"
-            btnName="Pet2Vet"
-            onClick={() => onClickHandler("/Pet2Vet")}
-          />
-          <br />
-          <br />
-          <Button type="onClick" id="plugInBtn" btnName="Medicine" />
-          <br />
-          <br />
-          <Button type="onClick" id="plugInBtn" btnName="Grocery" />
-          <br />
-          <br />
-          <Button type="onClick" id="plugInBtn" btnName="Boat" />
-        </form>
+        <Button
+          btnName="Pet2Vet"
+          onClick={() => onClickHandler("/Pet2Vet")}
+          classNames="db center ma3"
+        />
+        <Button btnName="Medicine" classNames="db center ma3" />
+        <Button btnName="Grocery" classNames="db center ma3" />
+        <Button btnName="Boat" classNames="db center ma3" />
+        <Button btnName="Logout" onClick={logout} classNames="db center ma3" />
       </div>
     </div>
   );
