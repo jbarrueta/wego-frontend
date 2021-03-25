@@ -7,22 +7,26 @@ import NavBar from "./Components/NavBar/NavBar";
 import HomePage from "./Common/HomePage/HomePage";
 import { Component } from "react";
 import axios from "axios";
+import { Cookies, withCookies } from "react-cookie";
+import { instanceOf } from "prop-types";
+import { createSession, destroySession } from "./util/cookies";
+import { OpenRoute, ProtectedRoute } from "./util/routes";
 
 class App extends Component {
-  constructor() {
-    super();
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
+  constructor(props) {
+    super(props);
     this.state = {
-      user: {},
+      user: props.cookies.get("user") || {},
     };
   }
 
   login = async (loginObj, history) => {
     try {
       const response = await axios.post("/login", loginObj);
-      console.log(response.data.data);
-      this.setState({ user: response.data.data }, () => {
-        history.push("/landing");
-      });
+      this.receiveUser(response.data.data, history);
     } catch (err) {
       alert(err.response.data.data.msg);
     }
@@ -33,38 +37,39 @@ class App extends Component {
       const response = await axios.post("/registration", registrationObj);
 
       //reponse.data.data => { email: email, id:id }
-      const customer = response.data.data;
-      console.log(response.data.data);
-
-      // TODO: create user session in cookies
-      // createSession(customer);
-
-      // TODO: user is authorized if no error is caught, re-route to login
-      this.setState({ user: response.data.data }, () => {
-        history.push("/landing");
-      });
+      this.receiveUser(response.data.data, history);
     } catch (err) {
       alert(err.response.data.data.msg);
     }
+  };
+
+  logout = () => {
+    const { cookies } = this.props;
+    destroySession(cookies);
+  };
+
+  receiveUser = (user, history) => {
+    const { cookies } = this.props;
+    createSession(cookies, user);
+    this.setState({ user }, () => history.push("/landing"));
   };
 
   render() {
     return (
       <div className="app pa2">
         <NavBar />
-        <Route exact path="/" component={HomePage} />
-        <Route
+        <OpenRoute exact path="/" component={HomePage} />
+        <ProtectedRoute
           path="/landing"
-          render={() =>
-            this.state.user.id ? (
-              <LandingPage user={this.state.user} />
-            ) : (
-              <Redirect to="/" />
-            )
-          }
+          component={() => (
+            <LandingPage user={this.state.user} logout={this.logout} />
+          )}
         />
-        <Route path="/login" component={() => <Login login={this.login} />} />
-        <Route
+        <OpenRoute
+          path="/login"
+          component={() => <Login login={this.login} />}
+        />
+        <OpenRoute
           path="/registration"
           component={() => <Registration register={this.register} />}
         />
@@ -73,4 +78,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withCookies(App);
