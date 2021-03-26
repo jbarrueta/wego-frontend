@@ -1,0 +1,63 @@
+.fleet-page {
+    text-align: center;
+  }
+  .fleet-list {
+    width: 50%;
+    margin: auto;
+  }
+  .fleet-item {
+    padding: 20px;
+    border: 1px solid;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+  
+  .vehicle-list td,
+  .vehicle-list th,
+  table.vehicle-list {
+    border: 1px solid grey;
+  }
+  
+  table {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .dialog-view {
+    background-color: #fff;
+    /* min-height: 50%; */
+    width: 60%;
+    margin: auto;
+  }
+  
+  .dialog-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+  }
+  
+  .close-button {
+    font-weight: bold;
+    border: 1px solid gray;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .dialog-content {
+    margin-bottom: 20px;
+  }
