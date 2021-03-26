@@ -1,8 +1,8 @@
 export const cookiesOptions = {
   path: "/",
   maxAge: 1800,
-  //   domain: ".team12.sweispring21.tk",
-  secure: false,
+  domain: ".team12.sweispring21.tk",
+  secure: true,
   httpOnly: false,
 };
 
