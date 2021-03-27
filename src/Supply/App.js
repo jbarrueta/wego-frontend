@@ -1,8 +1,6 @@
 import axios from "axios";
 import { Redirect, Route } from "react-router-dom";
-
-import React from "react";
-import logo from "./logo.svg";
+/*import logo from "./logo.svg";*/
 import "./App.css";
 import "./style.css";
 import Registration from "./Common/Registration/Registration";
