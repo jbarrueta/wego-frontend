@@ -6,8 +6,8 @@ import "./style.css";
 import Registration from "./Common/Registration/Registration";
 import Login from "./Common/Login/Login";
 import HomePage from "./Common/HomePage/HomePage";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+/*import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";*/
 import { Component } from "react";
 
 
