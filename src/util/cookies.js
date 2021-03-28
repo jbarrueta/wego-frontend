@@ -1,6 +1,6 @@
 export const cookiesOptions = {
   path: "/",
-  maxAge: 1800,
+  maxAge: 18000,
   //   domain: ".team12.sweispring21.tk",
   secure: false,
   httpOnly: false,
@@ -18,7 +18,8 @@ const setTimer = (cookies, user) => {
   );
 };
 export const createSession = (cookies, user) => {
-  cookies.set("user", user, cookiesOptions);
+  // cookies.set("user", user, cookiesOptions);
+  cookies.set("user", user);
   setTimer(cookies, user);
 };
 

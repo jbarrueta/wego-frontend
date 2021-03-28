@@ -47,7 +47,7 @@ const Registration = ({ register }) => {
           <Button type="submit" id="registerBtn" btnName="Register!" />
           <p className="opaqueFont">
             Already have an account?{" "}
-            <Link to="/login" className="link blue pointer dim">
+            <Link to="/wego/login" className="link blue pointer dim">
               Login here
             </Link>
           </p>

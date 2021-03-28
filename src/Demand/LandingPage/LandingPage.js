@@ -17,7 +17,7 @@ const LandingPage = ({ user, logout }) => {
       <div className="tc">
         <Button
           btnName="Pet2Vet"
-          onClick={() => onClickHandler("/Pet2Vet")}
+          onClick={() => onClickHandler("/pet2vet/landing")}
           classNames="db center ma3"
         />
         <Button btnName="Medicine" classNames="db center ma3" />

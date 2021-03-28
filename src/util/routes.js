@@ -14,7 +14,7 @@ const Open = ({ exact, path, component: Component }) => {
       path={path}
       render={(props) =>
         isLoggedIn(cookies) ? (
-          <Redirect exact to="/landing" />
+          <Redirect exact to="/wego/landing" />
         ) : (
           <Component {...props} />
         )
@@ -30,7 +30,7 @@ const Protected = ({ exact, path, component: Component }) => {
       exact={exact}
       path={path}
       render={(props) =>
-        isLoggedIn(cookies) ? <Component {...props} /> : <Redirect to="/" />
+        isLoggedIn(cookies) ? <Component {...props} /> : <Redirect to="/wego" />
       }
     />
   );
