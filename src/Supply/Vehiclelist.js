@@ -28,7 +28,6 @@ function VehicleList({ ...props }) {
     },
     [setVehicles, fleetId, fleet]
   );
-
   const handleChange = React.useCallback(
     (index) => {
       const vehicle = fleet.vehicles[index];
@@ -38,12 +37,25 @@ function VehicleList({ ...props }) {
     },
     [fleet]
   );
+ 
+  const handleFieldChange = React.useCallback((e) => {
+    const { name, value } = e.target;
+    setVehicle((vehicle) => {
+      return { ...vehicle, [name]: value };
+    });
+  }, []);
+  
+
+  
+
+  
 
   const handleAdd = React.useCallback(() => {
     setDialog(true);
     setVehicle({});
     setVehicleIndex();
   }, []);
+
 
   const handleClose = React.useCallback(() => {
     setVehicle({});
@@ -63,12 +75,7 @@ function VehicleList({ ...props }) {
     handleClose();
   }, [vehicle, handleClose, vehicleIndex, setVehicles, fleet, fleetId]);
 
-  const handleFieldChange = React.useCallback((e) => {
-    const { name, value } = e.target;
-    setVehicle((vehicle) => {
-      return { ...vehicle, [name]: value };
-    });
-  }, []);
+  
   console.log({ vehicleIndex });
   return (
     <div>
@@ -76,8 +83,8 @@ function VehicleList({ ...props }) {
       <table className="vehicle-list" cellPadding="10" cellSpacing="0">
         <thead>
           <tr>
-            <th>model</th>
-            <th>licensePlate</th>
+            <th>Model</th>
+            <th>LicensePlate</th>
             <th>Status</th>
             <th colSpan="2">
               <button type="button" onClick={handleAdd}>
@@ -92,20 +99,28 @@ function VehicleList({ ...props }) {
               <td>{vehicle.number}</td>
               <td>{vehicle.number2}</td>
               <td>{vehicle.status}</td>
-              
               <td>
-                <button type="button" onClick={() => handleDelete(i)}>
+
+                
+              <button type="button" onClick={() => handleChange(i)}>
+                  Edit Status
+                </button>
+                </td>
+                
+            <td>
+          <button type="button" onClick={() => handleDelete(i)}>
                   Delete
                 </button>
-              </td>
-            </tr>
+            </td>
+          </tr>
           ))}
         </tbody>
       </table>
+
       {dialog && (
         <Dialog
           onClose={handleClose}
-          title={vehicleIndex ? "string" : "Add new vehicle"}
+          title={vehicleIndex ? "change status": "status"}
         >
           <div>
             <table cellSpacing="15">
@@ -118,7 +133,7 @@ function VehicleList({ ...props }) {
                         <input
                           type="text"
                           name="number"
-                          value={vehicle.number || ""}
+                          value={vehicle.Status || ""}
                           onChange={handleFieldChange}
                         />
                       </td>
@@ -148,6 +163,7 @@ function VehicleList({ ...props }) {
                     >
                       <option value="available">Available</option>
                       <option value="inactive">In active</option>
+                      <option value="in order"> In order</option>
                     </select>
                   </td>
                 </tr>

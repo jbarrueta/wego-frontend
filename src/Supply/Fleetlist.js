@@ -15,7 +15,7 @@ function FleetList({ ...props }) {
 
   return (
     <div className="fleet-page">
-      <h1>Hi Fleet Manager</h1>
+      <h1>Fleet List</h1>
       <div className="fleet-list">
         {fleetList.map((fleet, i) => (
           <div

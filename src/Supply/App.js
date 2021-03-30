@@ -46,7 +46,7 @@ class App extends component() {
         console.log(response.data.data);
   
         // TODO: create user session in cookies
-        // createSession(customer);
+        // createSession(fleetManager);
   
         // TODO: user is authorized if no error is caught, re-route to login
         this.setState({ user: response.data.data }, () => {
@@ -55,6 +55,7 @@ class App extends component() {
       } catch (err) {
         alert(err.response.data.data.msg);
       }
+      
     };
   
     render() {
