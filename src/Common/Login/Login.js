@@ -31,7 +31,7 @@ const Login = ({ login }) => {
           <Button type="submit" id="loginBtn" btnName="Login" />
           <p className="opaqueFont">
             Don't have an account?{" "}
-            <Link to="/registration" className="link blue pointer dim">
+            <Link to="/wego/registration" className="link blue pointer dim">
               Register here
             </Link>
           </p>
