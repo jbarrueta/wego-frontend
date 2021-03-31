@@ -18,8 +18,7 @@ const setTimer = (cookies, user) => {
   );
 };
 export const createSession = (cookies, user) => {
-  // cookies.set("user", user, cookiesOptions);
-  cookies.set("user", user);
+  cookies.set("user", user, cookiesOptions);
   setTimer(cookies, user);
 };
 
