@@ -1,3 +1,5 @@
+import { useCookies } from "react-cookie";
+
 export const cookiesOptions = {
   path: "/",
   maxAge: 18000,
@@ -6,22 +8,24 @@ export const cookiesOptions = {
   httpOnly: false,
 };
 
-const setTimer = (cookies, user) => {
+const setTimer = (user) => {
   setTimeout(
     () =>
       window.confirm(
         "Session will end in approx. 1 min would you like to refresh?"
       )
-        ? createSession(cookies, user)
-        : destroySession(cookies) && window.location.reload,
+        ? createSession(user)
+        : destroySession() && window.location.reload,
     29 * 60000
   );
 };
-export const createSession = (cookies, user) => {
-  cookies.set("user", user, cookiesOptions);
-  setTimer(cookies, user);
+export const createSession = (user) => {
+  const [cookies, setCookie] = useCookies();
+  setCookie("user", user, cookiesOptions);
+  setTimer(user);
 };
 
-export const destroySession = (cookies) => {
-  cookies.remove("user", cookiesOptions);
+export const destroySession = () => {
+  const [cookies, setCookie, removeCookie];
+  removeCookie("user", cookiesOptions);
 };

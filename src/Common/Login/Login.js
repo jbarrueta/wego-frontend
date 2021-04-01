@@ -1,8 +1,11 @@
-import axios from "axios";
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { login } from "../../actions/session";
+
+const mapStateToProps = {};
 
 const Login = ({ login }) => {
   const history = useHistory();
@@ -14,7 +17,7 @@ const Login = ({ login }) => {
       password: e.target[1].value,
     };
 
-    login(loginObj, history);
+    login(loginObj);
   };
 
   return (
@@ -41,4 +44,4 @@ const Login = ({ login }) => {
   );
 };
 
-export default Login;
+export default connect(mapStateToProps, { Login })(Login);

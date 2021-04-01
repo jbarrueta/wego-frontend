@@ -9,7 +9,6 @@ import { Component } from "react";
 import axios from "axios";
 import { Cookies, withCookies } from "react-cookie";
 import { instanceOf } from "prop-types";
-import { createSession, destroySession } from "./util/cookies";
 import { OpenRoute, ProtectedRoute } from "./util/routes";
 import LandingPageP2V from "./Demand/Pet2Vet/LandingPageP2V.js/LandingPageP2V";
 import OrderPage from "./Demand/OrderPage/OrderPage";
@@ -25,36 +24,36 @@ class App extends Component {
     };
   }
 
-  login = async (loginObj, history) => {
-    try {
-      const response = await axios.post("/login", loginObj);
-      this.receiveUser(response.data.data, history);
-    } catch (err) {
-      alert(err.response.data.data.msg);
-    }
-  };
+  // login = async (loginObj, history) => {
+  //   try {
+  //     const response = await axios.post("/login", loginObj);
+  //     this.receiveUser(response.data.data, history);
+  //   } catch (err) {
+  //     alert(err.response.data.data.msg);
+  //   }
+  // };
 
-  register = async (registrationObj, history) => {
-    try {
-      const response = await axios.post("/registration", registrationObj);
+  // register = async (registrationObj, history) => {
+  //   try {
+  //     const response = await axios.post("/registration", registrationObj);
 
-      //reponse.data.data => { email: email, id:id }
-      this.receiveUser(response.data.data, history);
-    } catch (err) {
-      alert(err.response.data.data.msg);
-    }
-  };
+  //     //reponse.data.data => { email: email, id:id }
+  //     this.receiveUser(response.data.data, history);
+  //   } catch (err) {
+  //     alert(err.response.data.data.msg);
+  //   }
+  // };
 
-  logout = () => {
-    const { cookies } = this.props;
-    destroySession(cookies);
-  };
+  // logout = () => {
+  //   const { cookies } = this.props;
+  //   destroySession(cookies);
+  // };
 
-  receiveUser = (user, history) => {
-    const { cookies } = this.props;
-    createSession(cookies, user);
-    this.setState({ user }, () => history.push("/wego/landing"));
-  };
+  // receiveUser = (user, history) => {
+  //   const { cookies } = this.props;
+  //   createSession(cookies, user);
+  //   this.setState({ user }, () => history.push("/wego/landing"));
+  // };
 
   requestOrder = async (orderObj) => {
     try {
@@ -72,21 +71,20 @@ class App extends Component {
     return (
       <div className="app pa2">
         <Route exact path="/" render={() => <Redirect to="/wego" />} />
+        {/* TODO: add redux to NavBar */}
         <Route path="/" component={() => <NavBar user={this.state.user} />} />
         <Route exact path="/wego" component={HomePage} />
-        <OpenRoute
-          path="/wego/login"
-          component={() => <Login login={this.login} />}
-        />
+        {/* TODO: add redux to Login */}
+        <OpenRoute path="/wego/login" component={() => <Login />} />
+        {/* TODO: add redux to Registration */}
         <OpenRoute
           path="/wego/registration"
-          component={() => <Registration register={this.register} />}
+          component={() => <Registration />}
         />
+        {/* TODO: add redux to LandingPage */}
         <ProtectedRoute
           path="/wego/landing"
-          component={() => (
-            <LandingPage user={this.state.user} logout={this.logout} />
-          )}
+          component={() => <LandingPage />}
         />
         <ProtectedRoute
           path="/wego/order"
