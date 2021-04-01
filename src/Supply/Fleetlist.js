@@ -9,7 +9,7 @@ function FleetList({ ...props }) {
   const fleetList = state.fleetList;
   const redirectCars = (fleetId) => {
     history.push({
-      pathname: `/fleet-vehicles/${fleetId}`
+      pathname: `fleet-management/fleet-vehicles/${fleetId}`,
     });
   };
 

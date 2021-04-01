@@ -13,6 +13,7 @@ import { createSession, destroySession } from "./util/cookies";
 import { OpenRoute, ProtectedRoute } from "./util/routes";
 import LandingPageP2V from "./Demand/Pet2Vet/LandingPageP2V.js/LandingPageP2V";
 import OrderPage from "./Demand/OrderPage/OrderPage";
+import SupplyApp from "./Supply/SupplyApp";
 
 class App extends Component {
   static propTypes = {
@@ -53,7 +54,7 @@ class App extends Component {
   receiveUser = (user, history) => {
     const { cookies } = this.props;
     createSession(cookies, user);
-    this.setState({ user }, () => history.push("/wego/landing"));
+    this.setState({ user }, () => history.push("/fleet-management")); //temp manual change to /fleet-management
   };
 
   requestOrder = async (orderObj) => {
@@ -81,6 +82,10 @@ class App extends Component {
         <OpenRoute
           path="/wego/registration"
           component={() => <Registration register={this.register} />}
+        />
+        <ProtectedRoute
+          path="/fleet-management"
+          component={() => <SupplyApp user={this.state.user} />}
         />
         <ProtectedRoute
           path="/wego/landing"

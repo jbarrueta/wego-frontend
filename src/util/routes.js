@@ -14,7 +14,8 @@ const Open = ({ exact, path, component: Component }) => {
       path={path}
       render={(props) =>
         isLoggedIn(cookies) ? (
-          <Redirect to="/wego/landing/" />
+          // <Redirect to="/wego/landing/" />
+          <Redirect to="/fleet-management" />
         ) : (
           <Component {...props} />
         )
