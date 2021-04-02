@@ -71,12 +71,9 @@ class App extends Component {
     return (
       <div className="app pa2">
         <Route exact path="/" render={() => <Redirect to="/wego" />} />
-        {/* TODO: add redux to NavBar */}
-        <Route path="/" component={() => <NavBar user={this.state.user} />} />
+        <Route path="/" component={() => <NavBar />} />
         <Route exact path="/wego" component={HomePage} />
-        {/* TODO: add redux to Login */}
         <OpenRoute path="/wego/login" component={() => <Login />} />
-        {/* TODO: add redux to Registration */}
         <OpenRoute
           path="/wego/registration"
           component={() => <Registration />}

@@ -15,5 +15,7 @@ export default (state = initialState, payload) => {
     case "LOGOUT_USER":
       // reset to initial state with no user
       return initialState;
+    default:
+      return state;
   }
 };

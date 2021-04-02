@@ -1,20 +1,22 @@
 import * as sessionAPI from "../util/apiUtil/session";
 import { createSession, destroySession } from "../util/cookies";
+import { loading } from "./other";
+import { LOGOUT_USER, RECEIVE_USER } from "./types";
 
 const receiveUser = (user) => ({
-  type: "RECEIVE_USER",
+  type: RECEIVE_USER,
   user,
 });
 
 const logoutUser = () => ({
-  type: "LOGOUT_USER",
+  type: LOGOUT_USER,
 });
 
-export const login = (user) => async (dispatch) => {
+export const login = (user, cookies) => async (dispatch) => {
   try {
     dispatch(loading(true));
     const response = await sessionAPI.login(user);
-    createSession(response.data.data);
+    createSession(response.data.data, cookies);
     dispatch(receiveUser(response.data.data));
     return dispatch(loading(false));
   } catch (err) {
@@ -23,11 +25,11 @@ export const login = (user) => async (dispatch) => {
   }
 };
 
-export const registration = (user) => async (dispatch) => {
+export const register = (user, cookies) => async (dispatch) => {
   try {
     dispatch(loading(true));
-    const response = await sessionAPI.registration(user);
-    createSession(response.data.data);
+    const response = await sessionAPI.register(user);
+    createSession(response.data.data, cookies);
     dispatch(receiveUser(response.data.data));
     return dispatch(loading(false));
   } catch (err) {
@@ -36,6 +38,6 @@ export const registration = (user) => async (dispatch) => {
   }
 };
 
-export const logout = () => {
-  destroySession();
+export const logout = (cookies) => {
+  destroySession(cookies);
 };

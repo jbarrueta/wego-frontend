@@ -1,14 +1,10 @@
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
-import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../../actions/session";
 
-const mapStateToProps = {};
-
 const Login = ({ login }) => {
-  const history = useHistory();
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -44,4 +40,4 @@ const Login = ({ login }) => {
   );
 };
 
-export default connect(mapStateToProps, { Login })(Login);
+export default connect(null, { login })(Login);

@@ -1,7 +1,14 @@
+import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import Button from "../../Components/Button/Button";
+import { logout } from "../../actions/session";
+import { withCookies } from "react-cookie";
 
-const LandingPage = ({ user, logout }) => {
+const mapStateToProps = ({ session }) => ({
+  user: session,
+});
+
+const LandingPage = ({ user, logout, cookies }) => {
   const history = useHistory();
 
   const onClickHandler = (route) => {
@@ -23,10 +30,14 @@ const LandingPage = ({ user, logout }) => {
         <Button btnName="Medicine" classNames="db center ma3" />
         <Button btnName="Grocery" classNames="db center ma3" />
         <Button btnName="Boat" classNames="db center ma3" />
-        <Button btnName="Logout" onClick={logout} classNames="db center ma3" />
+        <Button
+          btnName="Logout"
+          onClick={() => logout(cookies)}
+          classNames="db center ma3"
+        />
       </div>
     </div>
   );
 };
 
-export default LandingPage;
+export default withCookies(connect(mapStateToProps, { logout })(LandingPage));

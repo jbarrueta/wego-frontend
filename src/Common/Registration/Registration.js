@@ -4,6 +4,8 @@ import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import { register } from "../../actions/session";
+import { connect } from "react-redux";
 
 const Registration = ({ register }) => {
   const history = useHistory();
@@ -57,4 +59,4 @@ const Registration = ({ register }) => {
   );
 };
 
-export default Registration;
+export default connect(null, { register })(Registration);

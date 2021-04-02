@@ -7,7 +7,7 @@ const isLoggedIn = (cookies) => {
 };
 
 const Open = ({ exact, path, component: Component }) => {
-  const [cookies, setCookie] = useCookies();
+  const [cookies] = useCookies();
   return (
     <Route
       exact={exact}
@@ -24,7 +24,7 @@ const Open = ({ exact, path, component: Component }) => {
 };
 
 const Protected = ({ exact, path, component: Component }) => {
-  const [cookies, setCookie] = useCookies();
+  const [cookies] = useCookies();
   return (
     <Route
       exact={exact}
