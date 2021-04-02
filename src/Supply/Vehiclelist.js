@@ -17,6 +17,8 @@ function VehicleList({ ...props }) {
   const fleet = fleetList.find((fleet) => `${fleet.fleetId}` === fleetId);
   console.log(fleet, fleetId);
 
+  /* It will delete vehicle from list. Also uses confirm dialog in it before delete.*/
+
   const handleDelete = React.useCallback(
     (index) => {
       const isConfirmed = window.confirm("Do you want to delete?");
@@ -29,6 +31,7 @@ function VehicleList({ ...props }) {
     },
     [setVehicles, fleetId, fleet]
   );
+  /*  It will used to open location update popup to change location of particular vehicle.*/
   const handleChange = React.useCallback(
     (index) => {
       const vehicle = fleet.vehicles[index];
@@ -38,26 +41,26 @@ function VehicleList({ ...props }) {
     },
     [fleet]
   );
-
+  /* This will used to set vehicle values on change location time or when we add new record, related to input's onchange Methods*/
   const handleFieldChange = React.useCallback((e) => {
     const { name, value } = e.target;
     setVehicle((vehicle) => {
       return { ...vehicle, [name]: value };
     });
   }, []);
-
+  /* It will open popup dialog box to show new vehicle info form to add new vehicle.*/
   const handleAdd = React.useCallback(() => {
     setDialog(true);
     setVehicle({});
     setVehicleIndex();
   }, []);
-
+  /*  It will used to close popup dialog box and clear data.*/
   const handleClose = React.useCallback(() => {
     setVehicle({});
     setVehicleIndex();
     setDialog(false);
   }, []);
-
+  /* It will add new vehicle info in to particular fleet's vehicle list or update existing vehicle for location change.*/
   const handleSave = React.useCallback(() => {
     const vehicleList = [...fleet.vehicles];
     if (vehicleIndex) {

@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import "./style.css";
 import { useUserStore } from "./context";
 
+/* 1.1 redirectCars (sorry naming is confusing) : it will redirect to vehicle page with fleetId. 
+Here it will use react-router's history.push mehtod.*/
 function FleetList({ ...props }) {
   const history = useHistory();
   const { state } = useUserStore();

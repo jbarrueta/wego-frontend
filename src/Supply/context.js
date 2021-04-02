@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import data from "./jsonData";
 
+
+/* setVehicles: It will update vehicle list of given fleetId.*/
+
 const FleetContext = React.createContext();
 
 function FleetProvider({ children }) {
@@ -33,6 +36,15 @@ function FleetProvider({ children }) {
   );
 }
 
+/* useUserStore: It will return context props which are provided in value. 
+      ex. we set const 
+      value = {
+            state,
+            setVehicles,
+        };
+    we will get above things when we call useUserStore() function in any file under provider. 
+    Check App.js file where we used Provider and then in any file we need context methods 
+    & data we can import this method there and simply call it to get things.*/
 export function useUserStore() {
   return React.useContext(FleetContext);
 }
