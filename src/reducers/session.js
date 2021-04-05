@@ -1,17 +1,17 @@
 const initialState = {
-  userId: null,
+  id: null,
   email: null,
   firstName: null,
   lastName: null,
   role: null,
 };
 
-export default (state = initialState, payload) => {
+export default (state = initialState, { type, payload }) => {
   Object.freeze(state); //state should never be manually changed
   //switch case is used to determine the kind of action performed
-  switch (payload.type) {
+  switch (type) {
     case "RECEIVE_USER":
-      return payload.user;
+      return payload;
     case "LOGOUT_USER":
       // reset to initial state with no user
       return initialState;

@@ -4,11 +4,11 @@ const initialState = {
   loading: false,
 };
 
-export default (state = initialState, payload) => {
+export default (state = initialState, { type, payload }) => {
   Object.freeze(state);
-  switch (payload.type) {
+  switch (type) {
     case CHANGE_LOADING_STATUS:
-      return { ...state, loading: payload.isLoading };
+      return { ...state, loading: payload };
     default:
       return state;
   }

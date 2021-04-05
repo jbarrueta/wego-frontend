@@ -2,7 +2,8 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import Button from "../../Components/Button/Button";
 import { logout } from "../../actions/session";
-import { withCookies } from "react-cookie";
+import { Cookies, withCookies } from "react-cookie";
+import PropTypes from "prop-types";
 
 const mapStateToProps = ({ session }) => ({
   user: session,
@@ -38,6 +39,12 @@ const LandingPage = ({ user, logout, cookies }) => {
       </div>
     </div>
   );
+};
+
+LandingPage.propTypes = {
+  user: PropTypes.object,
+  logout: PropTypes.func,
+  cookies: PropTypes.instanceOf(Cookies),
 };
 
 export default withCookies(connect(mapStateToProps, { logout })(LandingPage));

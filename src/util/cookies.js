@@ -12,14 +12,14 @@ const setTimer = (user, cookies) => {
       window.confirm(
         "Session will end in approx. 1 min would you like to refresh?"
       )
-        ? createSession(user, cookies)
+        ? cookies.get("user") && createSession(user, cookies)
         : destroySession(cookies) && window.location.reload,
     29 * 60000
   );
 };
 export const createSession = (user, cookies) => {
   cookies.set("user", user, cookiesOptions);
-  setTimer(cookies, user);
+  setTimer(user, cookies);
 };
 
 export const destroySession = (cookies) => {

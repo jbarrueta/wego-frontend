@@ -1,20 +1,27 @@
-import { useCookies } from "react-cookie";
 import { Redirect, Route, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import config from "../config/config";
 
-//TODO: pass to redux
-const isLoggedIn = (cookies) => {
-  return Boolean(cookies.user && cookies.user.id);
-};
+const mapStateToProps = ({ session }) => ({
+  loggedIn: Boolean(session.id),
+});
 
-const Open = ({ exact, path, component: Component }) => {
-  const [cookies] = useCookies();
+const subdomain = config.hostedOnServer
+  ? window.location.hostname.split(".")[0]
+  : config.workingBranch;
+
+const Open = ({ exact, path, component: Component, loggedIn }) => {
   return (
     <Route
       exact={exact}
       path={path}
       render={(props) =>
-        isLoggedIn(cookies) ? (
-          <Redirect to="/wego/landing/" />
+        loggedIn ? (
+          subdomain === "demand" ? (
+            <Redirect to="/landing" />
+          ) : (
+            <Redirect to="/fleet-management" />
+          )
         ) : (
           <Component {...props} />
         )
@@ -23,22 +30,41 @@ const Open = ({ exact, path, component: Component }) => {
   );
 };
 
-const Protected = ({ exact, path, component: Component }) => {
-  const [cookies] = useCookies();
+const ProtectedDemand = ({ exact, path, component: Component, loggedIn }) => {
   return (
     <Route
       exact={exact}
       path={path}
       render={(props) =>
-        isLoggedIn(cookies) ? (
+        loggedIn && subdomain === "demand" ? (
           <Component {...props} />
         ) : (
-          <Redirect exact to="/wego" />
+          <Redirect exact to="/" />
+        )
+      }
+    />
+  );
+};
+const ProtectedSupply = ({ exact, path, component: Component, loggedIn }) => {
+  return (
+    <Route
+      exact={exact}
+      path={path}
+      render={(props) =>
+        loggedIn && subdomain === "supply" ? (
+          <Component {...props} />
+        ) : (
+          <Redirect exact to="/" />
         )
       }
     />
   );
 };
 
-export const OpenRoute = withRouter(Open);
-export const ProtectedRoute = withRouter(Protected);
+export const OpenRoute = withRouter(connect(mapStateToProps)(Open));
+export const ProtectedDemandRoute = withRouter(
+  connect(mapStateToProps)(ProtectedDemand)
+);
+export const ProtectedSupplyRoute = withRouter(
+  connect(mapStateToProps)(ProtectedSupply)
+);

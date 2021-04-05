@@ -1,29 +1,21 @@
-import Button from "../../Components/Button/Button";
-import Input from "../../Components/Input/Input";
+import { connect } from "react-redux";
+import AnimatedCar from "../../Components/AnimatedCar/AnimatedCar";
 
-export default function OrderPage({ requestOrder }) {
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
+const mapStateToProps = ({ order: { currentOrder } }) => ({
+  order: currentOrder,
+});
 
-    const orderObj = {
-      serviceType: "pet2vet",
-      pickupAddress: e.target[0].value,
-      dropoffAddress: e.target[1].value,
-    };
-    requestOrder(orderObj);
-  };
+const OrderPage = ({ order }) => {
+  console.log(order);
   return (
-    <form className="tc ma5" onSubmit={onSubmitHandler}>
-      <p className="primarySize">
-        <span className="logoFont">WeGo </span> Autonomous Vehicle Order!
-      </p>
-      <div className="ma5">
-        <Input type="text" placeholder="Pickup Address" name="pickupAddress" />
-        <Input placeholder="Dropoff Address" name="dropoffAddress" />
+    <>
+      <p className="primarySize tc">Order Page</p>
+      <p className="secondarySize tc">Confirmation# {order.publicId}</p>
+      <div className="center ">
+        <AnimatedCar />
       </div>
-      <Button classNames="ma4" type="submit">
-        Request<span className="logoFont f4 pl2">WeGo</span>
-      </Button>
-    </form>
+    </>
   );
-}
+};
+
+export default connect(mapStateToProps)(OrderPage);
