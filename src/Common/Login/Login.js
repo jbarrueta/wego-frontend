@@ -1,11 +1,12 @@
-import axios from "axios";
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
-import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { login } from "../../actions/session";
+import { Cookies, withCookies } from "react-cookie";
+import PropTypes from "prop-types";
 
-const Login = ({ login }) => {
-  const history = useHistory();
+const Login = ({ login, cookies }) => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -14,7 +15,7 @@ const Login = ({ login }) => {
       password: e.target[1].value,
     };
 
-    login(loginObj, history);
+    login(loginObj, cookies);
   };
 
   return (
@@ -31,7 +32,7 @@ const Login = ({ login }) => {
           <Button type="submit" id="loginBtn" btnName="Login" />
           <p className="opaqueFont">
             Don't have an account?{" "}
-            <Link to="/wego/registration" className="link blue pointer dim">
+            <Link to="/registration" className="link blue pointer dim">
               Register here
             </Link>
           </p>
@@ -41,4 +42,9 @@ const Login = ({ login }) => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  cookies: PropTypes.instanceOf(Cookies).isRequired,
+  login: PropTypes.func.isRequired,
+};
+
+export default withCookies(connect(null, { login })(Login));

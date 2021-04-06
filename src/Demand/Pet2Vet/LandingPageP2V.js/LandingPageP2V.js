@@ -4,10 +4,10 @@ import Button from "../../../Components/Button/Button";
 export default function LandingPageP2V() {
   const history = useHistory();
   const pet2vet = () => {
-    history.push("/wego/order");
+    history.push("/pet2vet/order/form");
   };
   const pet2home = () => {
-    history.push("/wego/order");
+    history.push("/pet2vet/order/form");
   };
   return (
     <>

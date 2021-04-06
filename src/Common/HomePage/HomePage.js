@@ -23,7 +23,7 @@ export default function HomePage() {
           </p>
           <Button
             btnName="Sign Up"
-            onClick={() => onClickHandler("/wego/registration")}
+            onClick={() => onClickHandler("/registration")}
             classNames="mt5"
           />
         </div>
@@ -34,10 +34,7 @@ export default function HomePage() {
             orders and create new ones! If you have not already set up an
             account, please select “Sign up”.
           </p>
-          <Button
-            btnName="Log In"
-            onClick={() => onClickHandler("/wego/login")}
-          />
+          <Button btnName="Log In" onClick={() => onClickHandler("/login")} />
         </div>
       </div>
     </div>
