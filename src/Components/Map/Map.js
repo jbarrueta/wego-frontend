@@ -1,10 +1,11 @@
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp';
 import React from 'react';
-//import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 
 import { Component } from "react"
 
-//mapboxgl.workerClass = MapboxWorker;
+mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2F5dGx5bmd1ZXJyZXJvIiwiYSI6ImNrbGd5ejMwMTB5cDQyd29paGZoYnE0dW4ifQ.FN8hXcvlYPaxkl0UdIatVQ';
 
 class Map extends Component {
