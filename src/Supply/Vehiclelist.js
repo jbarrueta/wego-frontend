@@ -5,7 +5,6 @@ import "./style.css";
 import Dialog from "./Dialog";
 
 function VehicleList({ ...props }) {
-  console.log("here");
   let history = useHistory();
   let { fleetId } = useParams();
   const { state, setVehicles } = useUserStore();
@@ -16,8 +15,6 @@ function VehicleList({ ...props }) {
   console.log(fleetList);
   const fleet = fleetList.find((fleet) => `${fleet.fleetId}` === fleetId);
   console.log(fleet, fleetId);
-
-  /* It will delete vehicle from list. Also uses confirm dialog in it before delete.*/
 
   const handleDelete = React.useCallback(
     (index) => {
@@ -31,7 +28,6 @@ function VehicleList({ ...props }) {
     },
     [setVehicles, fleetId, fleet]
   );
-  /*  It will used to open location update popup to change location of particular vehicle.*/
   const handleChange = React.useCallback(
     (index) => {
       const vehicle = fleet.vehicles[index];
@@ -41,26 +37,32 @@ function VehicleList({ ...props }) {
     },
     [fleet]
   );
-  /* This will used to set vehicle values on change location time or when we add new record, related to input's onchange Methods*/
+ 
   const handleFieldChange = React.useCallback((e) => {
     const { name, value } = e.target;
     setVehicle((vehicle) => {
       return { ...vehicle, [name]: value };
     });
   }, []);
-  /* It will open popup dialog box to show new vehicle info form to add new vehicle.*/
+  
+
+  
+
+  
+
   const handleAdd = React.useCallback(() => {
     setDialog(true);
     setVehicle({});
     setVehicleIndex();
   }, []);
-  /*  It will used to close popup dialog box and clear data.*/
+
+
   const handleClose = React.useCallback(() => {
     setVehicle({});
     setVehicleIndex();
     setDialog(false);
   }, []);
-  /* It will add new vehicle info in to particular fleet's vehicle list or update existing vehicle for location change.*/
+
   const handleSave = React.useCallback(() => {
     const vehicleList = [...fleet.vehicles];
     if (vehicleIndex) {
@@ -73,6 +75,7 @@ function VehicleList({ ...props }) {
     handleClose();
   }, [vehicle, handleClose, vehicleIndex, setVehicles, fleet, fleetId]);
 
+  
   console.log({ vehicleIndex });
   return (
     <div>
@@ -97,17 +100,19 @@ function VehicleList({ ...props }) {
               <td>{vehicle.number2}</td>
               <td>{vehicle.status}</td>
               <td>
-                <button type="button" onClick={() => handleChange(i)}>
+
+                
+              <button type="button" onClick={() => handleChange(i)}>
                   Edit Status
                 </button>
-              </td>
-
-              <td>
-                <button type="button" onClick={() => handleDelete(i)}>
+                </td>
+                
+            <td>
+          <button type="button" onClick={() => handleDelete(i)}>
                   Delete
                 </button>
-              </td>
-            </tr>
+            </td>
+          </tr>
           ))}
         </tbody>
       </table>
@@ -115,7 +120,7 @@ function VehicleList({ ...props }) {
       {dialog && (
         <Dialog
           onClose={handleClose}
-          title={vehicleIndex ? "change status" : "status"}
+          title={vehicleIndex ? "change status": "status"}
         >
           <div>
             <table cellSpacing="15">
@@ -128,7 +133,7 @@ function VehicleList({ ...props }) {
                         <input
                           type="text"
                           name="number"
-                          value={vehicle.number || ""}
+                          value={vehicle.Status || ""}
                           onChange={handleFieldChange}
                         />
                       </td>

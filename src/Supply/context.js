@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import data from "./jsonData";
-
-
-/* setVehicles: It will update vehicle list of given fleetId.*/
 
 const FleetContext = React.createContext();
 
 function FleetProvider({ children }) {
   const [state, setState] = useState({
-    fleetList: [...data]
+    fleetList: [],
+    nextId: 1,
   });
 
   const setVehicles = React.useCallback(
@@ -20,15 +17,21 @@ function FleetProvider({ children }) {
       console.log(index);
       if (index !== -1) {
         list[index] = { ...list[index], vehicles };
-        setState({ fleetList: list });
+        setState({ ...state, fleetList: list });
       }
     },
-    [state.fleetList]
+    [state]
   );
+
+  const createFleet = React.useCallback((fleet) => {
+    const id = state.nextId
+    setState({nextId: id + 1, fleetList: [...state.fleetList, {fleetId: id, ...fleet, vehicles: []}]})
+  }, [state]);
 
   const value = {
     state,
-    setVehicles
+    setVehicles,
+    createFleet
   };
 
   return (
@@ -36,15 +39,6 @@ function FleetProvider({ children }) {
   );
 }
 
-/* useUserStore: It will return context props which are provided in value. 
-      ex. we set const 
-      value = {
-            state,
-            setVehicles,
-        };
-    we will get above things when we call useUserStore() function in any file under provider. 
-    Check App.js file where we used Provider and then in any file we need context methods 
-    & data we can import this method there and simply call it to get things.*/
 export function useUserStore() {
   return React.useContext(FleetContext);
 }
