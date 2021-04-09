@@ -1,7 +1,7 @@
 import "./style.css";
 import { Component } from "react";
-import FleetList from "./FleetList";
-import VehicleList from "./VehicleList";
+import FleetList from "./Fleetlist";
+import VehicleList from "./Vehiclelist";
 import { ProtectedSupplyRoute } from "../util/routes";
 
 class SupplyApp extends Component {
