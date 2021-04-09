@@ -4,12 +4,19 @@ import Dialog from "./Dialog";
 import { Component } from "react";
 import { connect } from "react-redux";
 import { addVehicle, getVehicleList } from "../actions/supply/vehicle";
+import PropTypes from "prop-types";
 
 const mapStateToProps = ({ vehicle: { vehicleList } }) => ({
   vehicleList,
 });
 
 class VehicleList extends Component {
+  static propTypes = {
+    vehicleList: PropTypes.arrayOf(PropTypes.object).isRequired,
+    addVehicle: PropTypes.func.isRequired,
+    getVehicleList: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {

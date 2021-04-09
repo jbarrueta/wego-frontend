@@ -4,7 +4,12 @@ import { connect } from "react-redux";
 import { requestOrder } from "../../actions/demand/order";
 import { useHistory, useParams } from "react-router";
 
-const mapStateToProps = ({ session: { id }, order: { currentOrder } }) => ({
+const mapStateToProps = ({
+  session: {
+    user: { id },
+  },
+  order: { currentOrder },
+}) => ({
   userId: id,
   order: currentOrder,
 });

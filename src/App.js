@@ -24,8 +24,9 @@ import { bool } from "prop-types";
 import OrderPage from "./Demand/OrderPage/OrderPage";
 import SupplyApp from "./Supply/SupplyApp";
 
-const mapStateToProps = ({ other: { loading } }) => ({
+const mapStateToProps = ({ other: { loading }, session: { user } }) => ({
   loading,
+  user,
 });
 
 class App extends Component {
@@ -46,7 +47,12 @@ class App extends Component {
     return (
       <>
         {this.props.loading && <Loader />}
-        <Route path="/" component={() => <NavBar />} />
+        <Route
+          path="/"
+          component={() => (
+            <NavBar user={this.props.user} cookies={this.props.cookies} />
+          )}
+        />
         <Switch>
           <OpenRoute exact path="/" component={HomePage} />
           <OpenRoute path="/login" component={() => <Login />} />

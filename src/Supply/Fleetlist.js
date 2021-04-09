@@ -6,8 +6,8 @@ import { addFleet, getFleetList } from "../actions/supply/fleet";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-const mapStateToProps = ({ fleet: { fleetList }, session }) => ({
-  user: session,
+const mapStateToProps = ({ fleet: { fleetList }, session: { user } }) => ({
+  user,
   fleetList,
 });
 
