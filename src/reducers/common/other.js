@@ -1,4 +1,4 @@
-import { CHANGE_LOADING_STATUS } from "../actions/types";
+import { CHANGE_LOADING_STATUS } from "../../actions/types";
 
 const initialState = {
   loading: false,

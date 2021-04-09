@@ -1,10 +1,15 @@
 import Button from "../../Components/Button/Button";
 import Input from "../../Components/Input/Input";
 import { connect } from "react-redux";
-import { requestOrder } from "../../actions/order";
+import { requestOrder } from "../../actions/demand/order";
 import { useHistory, useParams } from "react-router";
 
-const mapStateToProps = ({ session: { id }, order: { currentOrder } }) => ({
+const mapStateToProps = ({
+  session: {
+    user: { id },
+  },
+  order: { currentOrder },
+}) => ({
   userId: id,
   order: currentOrder,
 });

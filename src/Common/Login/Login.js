@@ -2,7 +2,7 @@ import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { login } from "../../actions/session";
+import { login } from "../../actions/common/session";
 import { Cookies, withCookies } from "react-cookie";
 import PropTypes from "prop-types";
 

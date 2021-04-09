@@ -16,15 +16,17 @@ import {
 import LandingPageP2V from "./Demand/Pet2Vet/LandingPageP2V.js/LandingPageP2V";
 import OrderForm from "./Demand/OrderForm/OrderForm";
 import { instanceOf } from "prop-types";
-import { receiveUser } from "./actions/session";
+import { receiveUser } from "./actions/common/session";
 import { connect } from "react-redux";
 import Loader from "./Components/Loader/Loader";
 import { func } from "prop-types";
 import { bool } from "prop-types";
 import OrderPage from "./Demand/OrderPage/OrderPage";
+import SupplyApp from "./Supply/SupplyApp";
 
-const mapStateToProps = ({ other: { loading } }) => ({
+const mapStateToProps = ({ other: { loading }, session: { user } }) => ({
   loading,
+  user,
 });
 
 class App extends Component {
@@ -45,7 +47,12 @@ class App extends Component {
     return (
       <>
         {this.props.loading && <Loader />}
-        <Route path="/" component={() => <NavBar />} />
+        <Route
+          path="/"
+          component={() => (
+            <NavBar user={this.props.user} cookies={this.props.cookies} />
+          )}
+        />
         <Switch>
           <OpenRoute exact path="/" component={HomePage} />
           <OpenRoute path="/login" component={() => <Login />} />
@@ -67,6 +74,10 @@ class App extends Component {
             exact
             path="/pet2vet"
             component={() => <LandingPageP2V />}
+          />
+          <ProtectedSupplyRoute
+            path="/fleet-management"
+            component={() => <SupplyApp />}
           />
         </Switch>
       </>
