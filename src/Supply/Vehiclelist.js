@@ -37,25 +37,19 @@ function VehicleList({ ...props }) {
     },
     [fleet]
   );
- 
+
   const handleFieldChange = React.useCallback((e) => {
     const { name, value } = e.target;
     setVehicle((vehicle) => {
       return { ...vehicle, [name]: value };
     });
   }, []);
-  
-
-  
-
-  
 
   const handleAdd = React.useCallback(() => {
     setDialog(true);
     setVehicle({});
     setVehicleIndex();
   }, []);
-
 
   const handleClose = React.useCallback(() => {
     setVehicle({});
@@ -75,7 +69,6 @@ function VehicleList({ ...props }) {
     handleClose();
   }, [vehicle, handleClose, vehicleIndex, setVehicles, fleet, fleetId]);
 
-  
   console.log({ vehicleIndex });
   return (
     <div>
@@ -100,19 +93,17 @@ function VehicleList({ ...props }) {
               <td>{vehicle.number2}</td>
               <td>{vehicle.status}</td>
               <td>
-
-                
-              <button type="button" onClick={() => handleChange(i)}>
+                <button type="button" onClick={() => handleChange(i)}>
                   Edit Status
                 </button>
-                </td>
-                
-            <td>
-          <button type="button" onClick={() => handleDelete(i)}>
+              </td>
+
+              <td>
+                <button type="button" onClick={() => handleDelete(i)}>
                   Delete
                 </button>
-            </td>
-          </tr>
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>
@@ -120,7 +111,7 @@ function VehicleList({ ...props }) {
       {dialog && (
         <Dialog
           onClose={handleClose}
-          title={vehicleIndex ? "change status": "status"}
+          title={vehicleIndex ? "change status" : "status"}
         >
           <div>
             <table cellSpacing="15">
@@ -133,7 +124,7 @@ function VehicleList({ ...props }) {
                         <input
                           type="text"
                           name="number"
-                          value={vehicle.Status || ""}
+                          value={vehicle.number || ""}
                           onChange={handleFieldChange}
                         />
                       </td>

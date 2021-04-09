@@ -4,7 +4,7 @@ import { Component } from "react";
 import FleetList from "./FleetList";
 import VehicleList from "./VehicleList";
 import FleetProvider from "./context";
-import { ProtectedRoute } from "../util/routes";
+import { ProtectedSupplyRoute } from "../util/routes";
 
 class SupplyApp extends Component {
   constructor(props) {
@@ -17,11 +17,11 @@ class SupplyApp extends Component {
   render() {
     return (
       <FleetProvider>
-        <ProtectedRoute
+        <ProtectedSupplyRoute
           path="/fleet-management/fleet-vehicles/:fleetId"
           component={VehicleList}
         />
-        <ProtectedRoute
+        <ProtectedSupplyRoute
           exact
           path={`/fleet-management/`}
           component={FleetList}

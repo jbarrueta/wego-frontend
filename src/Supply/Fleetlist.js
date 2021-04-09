@@ -13,7 +13,7 @@ function FleetList({ ...props }) {
 
   const redirectCars = (fleetId) => {
     history.push({
-      pathname: `/fleet-vehicles/${fleetId}`,
+      pathname: `/fleet-management/fleet-vehicles/${fleetId}`,
     });
   };
 
@@ -46,7 +46,11 @@ function FleetList({ ...props }) {
   return (
     <div className="fleet-page">
       <h1>Welcome Back</h1>
-      <button type="button" onClick={handleAdd} style={{ padding: "5px 100px", margin: 10 }}>
+      <button
+        type="button"
+        onClick={handleAdd}
+        style={{ padding: "5px 100px", margin: 10 }}
+      >
         Add new Fleet
       </button>
       <div className="fleet-list">
@@ -92,5 +96,3 @@ function FleetList({ ...props }) {
 }
 
 export default FleetList;
-
-
