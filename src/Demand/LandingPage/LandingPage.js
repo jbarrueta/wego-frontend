@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import Button from "../../Components/Button/Button";
-import { logout } from "../../actions/session";
+import { logout } from "../../actions/common/session";
 import { Cookies, withCookies } from "react-cookie";
 import PropTypes from "prop-types";
 

@@ -1,12 +1,12 @@
 .fleet-page {
   text-align: center;
-  background-color: rgba(226, 230, 220, 0.753);
+  /* background-color: #abbba3; */
 }
 
 .fleet-list {
   width: 40%;
   margin: auto;
-  background-color: rgba(158, 167, 149, 0.952);
+  background-color: #abbba3;
   border: 0px solid black;
 }
 .fleet-item {
@@ -21,7 +21,7 @@
 .vehicle-list th,
 table.vehicle-list {
   border: 1px solid rgba(59, 57, 57, 0.527);
-  background-color: rgba(207, 209, 195, 0.801);
+  background-color: #abbba3;
 }
 
 table {

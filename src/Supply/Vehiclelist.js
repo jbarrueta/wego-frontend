@@ -1,185 +1,191 @@
 import React from "react";
-import { useHistory, useParams } from "react-router-dom";
-import { useUserStore } from "./context";
 import "./style.css";
 import Dialog from "./Dialog";
+import { Component } from "react";
+import { connect } from "react-redux";
+import { addVehicle, getVehicleList } from "../actions/supply/vehicle";
 
-function VehicleList({ ...props }) {
-  let history = useHistory();
-  let { fleetId } = useParams();
-  const { state, setVehicles } = useUserStore();
-  const [dialog, setDialog] = React.useState();
-  const [vehicle, setVehicle] = React.useState();
-  const [vehicleIndex, setVehicleIndex] = React.useState();
-  const fleetList = state.fleetList;
-  console.log(fleetList);
-  const fleet = fleetList.find((fleet) => `${fleet.fleetId}` === fleetId);
-  console.log(fleet, fleetId);
+const mapStateToProps = ({ vehicle: { vehicleList } }) => ({
+  vehicleList,
+});
 
-  const handleDelete = React.useCallback(
-    (index) => {
-      const isConfirmed = window.confirm("Do you want to delete?");
-      console.log(isConfirmed);
-      if (isConfirmed) {
-        const vehicleList = [...fleet.vehicles];
-        vehicleList.splice(index, 1);
-        setVehicles(vehicleList, fleetId);
-      }
-    },
-    [setVehicles, fleetId, fleet]
-  );
-  const handleChange = React.useCallback(
-    (index) => {
-      const vehicle = fleet.vehicles[index];
-      setDialog(true);
-      setVehicleIndex(index);
-      setVehicle(vehicle);
-    },
-    [fleet]
-  );
+class VehicleList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dialog: false,
+      vehicle: null,
+      fleetId: this.props.match.params.fleetId,
+    };
+  }
 
-  const handleFieldChange = React.useCallback((e) => {
-    const { name, value } = e.target;
-    setVehicle((vehicle) => {
-      return { ...vehicle, [name]: value };
-    });
-  }, []);
+  componentDidMount() {
+    this.props.getVehicleList(this.state.fleetId);
+  }
 
-  const handleAdd = React.useCallback(() => {
-    setDialog(true);
-    setVehicle({});
-    setVehicleIndex();
-  }, []);
+  openDialog = (vehicle) => {
+    this.setState({ dialog: true, vehicle });
+  };
+  closeDialog = () => {
+    this.setState({ dialog: false, vehicleId: null });
+  };
 
-  const handleClose = React.useCallback(() => {
-    setVehicle({});
-    setVehicleIndex();
-    setDialog(false);
-  }, []);
-
-  const handleSave = React.useCallback(() => {
-    const vehicleList = [...fleet.vehicles];
-    if (vehicleIndex) {
-      vehicleList.splice(vehicleIndex, 1, { ...vehicle });
-      setVehicles(vehicleList, fleetId);
+  handleSubmit = (e) => {
+    e.preventDefault();
+    if (this.state.vehicle) {
+      this.handleUpdate(e);
     } else {
-      vehicleList.push({ ...vehicle });
-      setVehicles(vehicleList, fleetId);
+      this.handleAdd(e);
     }
-    handleClose();
-  }, [vehicle, handleClose, vehicleIndex, setVehicles, fleet, fleetId]);
+    this.closeDialog();
+  };
 
-  console.log({ vehicleIndex });
-  return (
-    <div>
-      <h2>Vehicle List</h2>
-      <table className="vehicle-list" cellPadding="10" cellSpacing="0">
-        <thead>
-          <tr>
-            <th>Model</th>
-            <th>LicensePlate</th>
-            <th>Status</th>
-            <th colSpan="2">
-              <button type="button" onClick={handleAdd}>
-                Add new Vehicle
-              </button>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {fleet.vehicles.map((vehicle, i) => (
-            <tr key={i}>
-              <td>{vehicle.number}</td>
-              <td>{vehicle.number2}</td>
-              <td>{vehicle.status}</td>
-              <td>
-                <button type="button" onClick={() => handleChange(i)}>
-                  Edit Status
-                </button>
-              </td>
+  handleAdd = (e) => {
+    const vehicleObj = {
+      vehicle_model: e.target[0].value,
+      license_plate: e.target[1].value,
+      vehicle_status: e.target[2].value,
+    };
+    console.log("Handle Submit", vehicleObj);
+    this.props.addVehicle(this.state.fleetId, vehicleObj);
+  };
 
-              <td>
-                <button type="button" onClick={() => handleDelete(i)}>
-                  Delete
+  handleUpdate = (e) => {
+    e.preventDefault();
+    const vehicleObj = {
+      vehicle_status: e.target[0].value,
+    };
+    console.log("Handle Update", vehicleObj);
+    // TODO: implement updateVehicle redux + backend
+    // this.props.updateVehicle(vehicleObj);
+  };
+
+  render() {
+    return (
+      <div>
+        <h2>Vehicle List</h2>
+        <table className="vehicle-list" cellPadding="10" cellSpacing="0">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>LicensePlate</th>
+              <th>Status</th>
+              <th colSpan="2">
+                <button type="button" onClick={() => this.openDialog(null)}>
+                  Add new Vehicle
                 </button>
-              </td>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {this.props.vehicleList.map((vehicle, i) => (
+              <tr key={i}>
+                <td>{vehicle.vehicle_model}</td>
+                <td>{vehicle.license_plate}</td>
+                <td>{vehicle.vehicle_status}</td>
+                <td>
+                  <button
+                    type="button"
+                    onClick={() => this.openDialog(vehicle)}
+                  >
+                    Edit Status
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      {dialog && (
-        <Dialog
-          onClose={handleClose}
-          title={vehicleIndex ? "change status" : "status"}
-        >
-          <div>
-            <table cellSpacing="15">
-              <tbody>
-                {[undefined, null].includes(vehicleIndex) ? (
-                  <React.Fragment>
+        {this.state.dialog && (
+          <Dialog
+            onClose={this.closeDialog}
+            title={this.state.vehicle ? "change status" : "Add Vehicle"}
+          >
+            <div>
+              <form onSubmit={this.handleSubmit}>
+                <table cellSpacing="15">
+                  <tbody>
+                    {this.state.vehicle === null && (
+                      <>
+                        <tr>
+                          <td style={{ fontWeight: "bold" }}>model</td>
+                          <td>
+                            <input type="text" name="vehicle_model" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style={{ fontWeight: "bold" }}>licensePlate</td>
+
+                          <td>
+                            <input type="text" name="license_plate" />
+                          </td>
+                        </tr>
+                      </>
+                    )}
                     <tr>
-                      <td style={{ fontWeight: "bold" }}>model</td>
+                      <td style={{ fontWeight: "bold" }}>Status</td>
+
                       <td>
-                        <input
-                          type="text"
-                          name="number"
-                          value={vehicle.number || ""}
-                          onChange={handleFieldChange}
-                        />
+                        <select
+                          value={
+                            this.state.vehicle
+                              ? this.state.vehicle.vehicle_status
+                              : ""
+                          }
+                          name="vehicle_status"
+                        >
+                          <option
+                            value={
+                              this.state.vehicle
+                                ? this.state.vehicle.vehicle_status
+                                : "Available"
+                            }
+                          >
+                            Active
+                          </option>
+                          <option
+                            value="inactive"
+                            disabled={
+                              this.state.vehicle !== null &&
+                              this.state.vehicle.vehicle_status === "busy"
+                            }
+                          >
+                            Inactive
+                          </option>
+                          <option
+                            value="maintenance"
+                            disabled={
+                              this.state.vehicle !== null &&
+                              this.state.vehicle.vehicle_status === "busy"
+                            }
+                          >
+                            Under Maintenance
+                          </option>
+                        </select>
                       </td>
                     </tr>
-                    <tr>
-                      <td style={{ fontWeight: "bold" }}>licensePlate</td>
-
-                      <td>
-                        <input
-                          type="text"
-                          name="number2"
-                          value={vehicle.number2 || ""}
-                          onChange={handleFieldChange}
-                        />
-                      </td>
-                    </tr>
-                  </React.Fragment>
-                ) : null}
-                <tr>
-                  <td style={{ fontWeight: "bold" }}>Status</td>
-
-                  <td>
-                    <select
-                      value={vehicle.status}
-                      name="status"
-                      onChange={handleFieldChange}
-                    >
-                      <option value="available">Available</option>
-                      <option value="inactive">In active</option>
-                      <option value="in order"> In order</option>
-                    </select>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: 10,
-              }}
-            >
-              <button
-                style={{ padding: "5px 100px" }}
-                type="button"
-                onClick={handleSave}
-              >
-                Save
-              </button>
+                  </tbody>
+                </table>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: 10,
+                  }}
+                >
+                  <button style={{ padding: "5px 100px" }} type="submit">
+                    Save
+                  </button>
+                </div>
+              </form>
             </div>
-          </div>
-        </Dialog>
-      )}
-    </div>
-  );
+          </Dialog>
+        )}
+      </div>
+    );
+  }
 }
 
-export default VehicleList;
+export default connect(mapStateToProps, { addVehicle, getVehicleList })(
+  VehicleList
+);

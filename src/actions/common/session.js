@@ -1,7 +1,7 @@
-import * as sessionAPI from "../util/apiUtil/session";
-import { createSession, destroySession } from "../util/cookies";
+import * as sessionAPI from "../../util/apiUtil/session";
+import { createSession, destroySession } from "../../util/cookies";
 import { loading } from "./other";
-import { LOGOUT_USER, RECEIVE_USER } from "./types";
+import { LOGOUT_USER, RECEIVE_USER } from "../types";
 
 export const receiveUser = (user) => ({
   type: RECEIVE_USER,

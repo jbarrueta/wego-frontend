@@ -1,6 +1,6 @@
-import { RECEIVE_ORDER } from "./types";
-import * as orderAPI from "../util/apiUtil/order";
-import { loading } from "./other";
+import { RECEIVE_ORDER } from "../types";
+import * as orderAPI from "../../util/apiUtil/order";
+import { loading } from "../common/other";
 
 const receiveOrder = (order) => ({
   type: RECEIVE_ORDER,

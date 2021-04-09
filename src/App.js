@@ -16,7 +16,7 @@ import {
 import LandingPageP2V from "./Demand/Pet2Vet/LandingPageP2V.js/LandingPageP2V";
 import OrderForm from "./Demand/OrderForm/OrderForm";
 import { instanceOf } from "prop-types";
-import { receiveUser } from "./actions/session";
+import { receiveUser } from "./actions/common/session";
 import { connect } from "react-redux";
 import Loader from "./Components/Loader/Loader";
 import { func } from "prop-types";
