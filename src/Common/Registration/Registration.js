@@ -1,7 +1,7 @@
 import Input from "../../Components/Input/Input";
 import Button from "../../Components/Button/Button";
 import { Link } from "react-router-dom";
-import { register } from "../../actions/session";
+import { register } from "../../actions/common/session";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Cookies from "universal-cookie";

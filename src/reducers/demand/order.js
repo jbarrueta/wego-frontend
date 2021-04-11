@@ -1,4 +1,4 @@
-import { RECEIVE_ORDER, RECEIVE_ORDERS_LIST } from "../actions/types";
+import { RECEIVE_ORDER, RECEIVE_ORDERS_LIST } from "../../actions/types";
 
 const initialState = {
   currentOrder: {

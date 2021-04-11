@@ -2,8 +2,8 @@ import { Redirect, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import config from "../config/config";
 
-const mapStateToProps = ({ session }) => ({
-  loggedIn: Boolean(session.id),
+const mapStateToProps = ({ session: { user } }) => ({
+  loggedIn: Boolean(user.id),
 });
 
 const subdomain = config.hostedOnServer
