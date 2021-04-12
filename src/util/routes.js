@@ -10,6 +10,8 @@ const subdomain = config.hostedOnServer
   ? window.location.hostname.split(".")[0]
   : config.workingBranch;
 
+console.log(subdomain);
+
 const Open = ({ exact, path, component: Component, loggedIn }) => {
   return (
     <Route
