@@ -6,20 +6,20 @@ export const cookiesOptions = {
   httpOnly: false,
 };
 
-const setTimer = (cookies, user) => {
+const setTimer = (user, cookies) => {
   setTimeout(
     () =>
       window.confirm(
         "Session will end in approx. 1 min would you like to refresh?"
       )
-        ? createSession(cookies, user)
+        ? cookies.get("user") && createSession(user, cookies)
         : destroySession(cookies) && window.location.reload,
     29 * 60000
   );
 };
-export const createSession = (cookies, user) => {
+export const createSession = (user, cookies) => {
   cookies.set("user", user, cookiesOptions);
-  setTimer(cookies, user);
+  setTimer(user, cookies);
 };
 
 export const destroySession = (cookies) => {

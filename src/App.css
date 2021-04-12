@@ -1,0 +1,11 @@
+.map-container {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+
+  }
+
+  
+  .duration {
+    font-size: 2em;
+  }
