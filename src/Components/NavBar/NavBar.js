@@ -4,28 +4,86 @@ import Logo from "../Logo/Logo";
 import LogoP2V from "../LogoP2V/LogoP2V";
 import "./NavBar.css";
 import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
+import { logout } from "../../actions/common/session";
+import LockIcon from "@material-ui/icons/Lock";
+import { Cookies, withCookies } from "react-cookie";
 
-const mapStateToProps = ({ session }) => ({
-  user: session,
+const mapStateToProps = ({ session: { user, loggedIn } }) => ({
+  user,
+  loggedIn,
 });
 
-const NavBar = ({ user }) => {
+const NavBar = ({ loggedIn, cookies, logout }) => {
   return (
-    <div className="navBar flex justify-between">
+    <div className="navBar flex justify-between pa3">
       <div>
         <Switch>
           <Route path="/pet2vet" component={LogoP2V} />
           <Route path="/" component={Logo} />
         </Switch>
       </div>
-      {/* <div className="flex items-center ma4 secondarySize">Home</div> */}
+      {loggedIn && (
+        <div className="flex items-center">
+          <NavLink
+            exact
+            to="/landing"
+            className="secondarySize black link dim pointer ph3 "
+            activeClassName="b"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            exact
+            to="/pet2vet"
+            className="secondarySize black link dim pointer ph3 "
+            activeClassName="b"
+          >
+            Pet2Vet
+          </NavLink>
+          <NavLink
+            exact
+            to="/medicine"
+            className="secondarySize black link dim pointer ph3 "
+            activeClassName="b"
+          >
+            Medicine
+          </NavLink>
+          <NavLink
+            exact
+            to="/grocery"
+            className="secondarySize black link dim pointer ph3 "
+            activeClassName="b"
+          >
+            Grocery
+          </NavLink>
+          <NavLink
+            exact
+            to="/boat"
+            className="secondarySize black link dim pointer ph3 "
+            activeClassName="b"
+          >
+            Boat
+          </NavLink>
+          <div>
+            <div
+              onClick={() => logout(cookies)}
+              className="f6 flex flex-column items-center black link dim pointer ph3"
+            >
+              <LockIcon className="red pointer grow dim" />
+              Logout
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 NavBar.propTypes = {
-  user: PropTypes.object.isRequired,
-  some: PropTypes.string,
+  loggedIn: PropTypes.bool.isRequired,
+  cookies: PropTypes.instanceOf(Cookies).isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(NavBar);
+export default withCookies(connect(mapStateToProps, { logout })(NavBar));
