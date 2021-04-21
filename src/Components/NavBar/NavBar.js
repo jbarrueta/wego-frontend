@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom";
 import { logout } from "../../actions/common/session";
 import LockIcon from "@material-ui/icons/Lock";
 import { Cookies, withCookies } from "react-cookie";
+import config from "../../config/config";
 
 const mapStateToProps = ({ session: { user, loggedIn } }) => ({
   user,
@@ -23,7 +24,7 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           <Route path="/" component={Logo} />
         </Switch>
       </div>
-      {loggedIn && (
+      {loggedIn && config.workingBranch == "demand" && (
         <div className="flex items-center">
           <NavLink
             exact
@@ -64,6 +65,27 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
             activeClassName="b"
           >
             Boat
+          </NavLink>
+          <div>
+            <div
+              onClick={() => logout(cookies)}
+              className="f6 flex flex-column items-center black link dim pointer ph3"
+            >
+              <LockIcon className="red pointer grow dim" />
+              Logout
+            </div>
+          </div>
+        </div>
+      )}
+      {loggedIn && config.workingBranch == "supply" && (
+        <div className="flex items-center">
+          <NavLink
+            exact
+            to="/fleet-management"
+            className="secondarySize black link dim pointer ph3 "
+            activeClassName="b"
+          >
+            Home
           </NavLink>
           <div>
             <div
