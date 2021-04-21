@@ -3,7 +3,6 @@ import React from "react";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
 // import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-import * as turf from '@turf/turf';
 
 import { Component } from "react";
 
@@ -110,7 +109,6 @@ class Map extends Component {
 
   }
 
-  
 
   render() {
     return (
