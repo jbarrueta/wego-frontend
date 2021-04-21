@@ -43,11 +43,11 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           </NavLink>
           <NavLink
             exact
-            to="/medicine"
+            to="/pharma"
             className="secondarySize black link dim pointer ph3 "
             activeClassName="b"
           >
-            Medicine
+            Pharma
           </NavLink>
           <NavLink
             exact
