@@ -6,7 +6,7 @@
 .fleet-list {
   width: 40%;
   margin: auto;
-  background-color: #abbba3;
+  background-color: rgba(52, 82, 104, 1);
   border: 0px solid black;
 }
 .fleet-item {
@@ -21,7 +21,7 @@
 .vehicle-list th,
 table.vehicle-list {
   border: 1px solid rgba(59, 57, 57, 0.527);
-  background-color: #abbba3;
+  background-color: rgba(52, 82, 104, 1);
 }
 
 table {
