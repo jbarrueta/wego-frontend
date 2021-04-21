@@ -51,11 +51,11 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           </NavLink>
           <NavLink
             exact
-            to="/grocery"
+            to="/groceries"
             className="secondarySize black link dim pointer ph3 "
             activeClassName="b"
           >
-            Grocery
+            Groceries
           </NavLink>
           <NavLink
             exact
