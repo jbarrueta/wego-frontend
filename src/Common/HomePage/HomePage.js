@@ -10,8 +10,8 @@ export default function HomePage() {
   };
   return (
     <div>
-      <p className="tc mt5 primarySize">
-        Welcome to <span className="satisfy">WeGo</span>
+      <p className="center mt5 header w-550px satisfy">
+        Autonomous Vehicle Transportation Services
       </p>
       <div className="flex justify-center tc">
         <div className="w-400px ph4 br bw1 b--black-20">

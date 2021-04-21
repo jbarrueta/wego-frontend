@@ -16,7 +16,7 @@ const Button = ({
       <button
         type={type}
         id={id}
-        className={`secondarySize button ba pv2 ph5 br-pill grow pointer ${classNames}`}
+        className={`secondarySize secondaryColor button ba bw0 pv2 ph5 br-pill grow pointer ${classNames}`}
         onClick={onClick}
         style={style}
       >

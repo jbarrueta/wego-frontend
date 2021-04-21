@@ -31,7 +31,7 @@ class VehicleList extends Component {
   }
 
   openDialog = (vehicle) => {
-    this.setState({ dialog: true, vehicle });
+    this.setState({ dialog: true, vehicle: { ...vehicle } });
   };
   closeDialog = () => {
     this.setState({ dialog: false, vehicleId: null });
@@ -134,18 +134,22 @@ class VehicleList extends Component {
 
                       <td>
                         <select
-                          value={
+                          defaultValue={
                             this.state.vehicle
                               ? this.state.vehicle.vehicle_status
                               : ""
                           }
                           name="vehicle_status"
+                          onChange={(e) => {
+                            console.log("here");
+                            this.state.vehicle.vehicle_status = e.target.value;
+                          }}
                         >
                           <option
                             value={
                               this.state.vehicle
                                 ? this.state.vehicle.vehicle_status
-                                : "Available"
+                                : "available"
                             }
                           >
                             Active
