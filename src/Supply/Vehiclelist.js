@@ -3,7 +3,11 @@ import "./style.css";
 import Dialog from "./Dialog";
 import { Component } from "react";
 import { connect } from "react-redux";
-import { addVehicle, getVehicleList } from "../actions/supply/vehicle";
+import {
+  addVehicle,
+  getVehicleList,
+  updateVehicle,
+} from "../actions/supply/vehicle";
 import PropTypes from "prop-types";
 
 const mapStateToProps = ({ vehicle: { vehicleList } }) => ({
@@ -14,6 +18,7 @@ class VehicleList extends Component {
   static propTypes = {
     vehicleList: PropTypes.arrayOf(PropTypes.object).isRequired,
     addVehicle: PropTypes.func.isRequired,
+    updateVehicle: PropTypes.func.isRequired,
     getVehicleList: PropTypes.func.isRequired,
   };
 
@@ -31,7 +36,11 @@ class VehicleList extends Component {
   }
 
   openDialog = (vehicle) => {
-    this.setState({ dialog: true, vehicle: { ...vehicle } });
+    console.log(vehicle);
+    this.setState({
+      dialog: true,
+      vehicle: vehicle === null ? null : { ...vehicle },
+    });
   };
   closeDialog = () => {
     this.setState({ dialog: false, vehicleId: null });
@@ -62,9 +71,7 @@ class VehicleList extends Component {
     const vehicleObj = {
       vehicle_status: e.target[0].value,
     };
-    console.log("Handle Update", vehicleObj);
-    // TODO: implement updateVehicle redux + backend
-    // this.props.updateVehicle(vehicleObj);
+    this.props.updateVehicle(this.state.vehicle._id, vehicleObj);
   };
 
   render() {
@@ -86,7 +93,7 @@ class VehicleList extends Component {
           </thead>
           <tbody>
             {this.props.vehicleList.map((vehicle, i) => (
-              <tr key={i}>
+              <tr key={vehicle._id}>
                 <td>{vehicle.vehicle_model}</td>
                 <td>{vehicle.license_plate}</td>
                 <td>{vehicle.vehicle_status}</td>
@@ -137,23 +144,19 @@ class VehicleList extends Component {
                           defaultValue={
                             this.state.vehicle
                               ? this.state.vehicle.vehicle_status
-                              : ""
+                              : "available"
                           }
                           name="vehicle_status"
-                          onChange={(e) => {
-                            console.log("here");
-                            this.state.vehicle.vehicle_status = e.target.value;
-                          }}
+                          // onChange={(e) => {
+                          //   this.setState((prevState) => ({
+                          //     vehicle: {
+                          //       ...prevState.vehicle,
+                          //       vehicle_status: e.target.value,
+                          //     },
+                          //   }));
+                          // }}
                         >
-                          <option
-                            value={
-                              this.state.vehicle
-                                ? this.state.vehicle.vehicle_status
-                                : "available"
-                            }
-                          >
-                            Active
-                          </option>
+                          <option value={"available"}>Active</option>
                           <option
                             value="inactive"
                             disabled={
@@ -197,6 +200,8 @@ class VehicleList extends Component {
   }
 }
 
-export default connect(mapStateToProps, { addVehicle, getVehicleList })(
-  VehicleList
-);
+export default connect(mapStateToProps, {
+  addVehicle,
+  updateVehicle,
+  getVehicleList,
+})(VehicleList);

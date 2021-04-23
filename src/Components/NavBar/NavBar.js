@@ -9,6 +9,9 @@ import { logout } from "../../actions/common/session";
 import LockIcon from "@material-ui/icons/Lock";
 import { Cookies, withCookies } from "react-cookie";
 import config from "../../config/config";
+import LogoGroceries from "../LogoGroceries/LogoGroceries";
+import LogoPharma from "../LogoPharma/LogoPharma";
+import LogoBoat from "../LogoBoat/LogoBoat";
 
 const mapStateToProps = ({ session: { user, loggedIn } }) => ({
   user,
@@ -20,6 +23,9 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
     <div className="navBar flex justify-between pa3">
       <div>
         <Switch>
+          <Route path="/boat" component={LogoBoat} />
+          <Route path="/groceries" component={LogoGroceries} />
+          <Route path="/pharma" component={LogoPharma} />
           <Route path="/pet2vet" component={LogoP2V} />
           <Route path="/" component={Logo} />
         </Switch>
@@ -44,7 +50,7 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           </NavLink>
           <NavLink
             exact
-            to="/pharma"
+            to="/pharma/order/form"
             className="secondarySize black link dim pointer ph3 "
             activeClassName="b"
           >
@@ -52,7 +58,7 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           </NavLink>
           <NavLink
             exact
-            to="/groceries"
+            to="/groceries/order/form"
             className="secondarySize black link dim pointer ph3 "
             activeClassName="b"
           >
@@ -60,7 +66,7 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           </NavLink>
           <NavLink
             exact
-            to="/boat"
+            to="/boat/order/form"
             className="secondarySize black link dim pointer ph3 "
             activeClassName="b"
           >
