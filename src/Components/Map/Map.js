@@ -100,7 +100,8 @@ class Map extends Component {
       'type': 'symbol',
       'source': 'vehicle',
       'layout': {
-        'icon-image': 'car-15'
+        'icon-image': 'car-15',
+        'icon-size': 1.5
       }
     })
 
