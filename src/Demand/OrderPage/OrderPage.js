@@ -3,56 +3,83 @@ import { connect } from "react-redux";
 import AnimatedCar from "../../Components/AnimatedCar/AnimatedCar";
 import axios from "axios";
 import config from "../../config/config";
+import { Component } from "react";
+import { getOrder } from "../../actions/demand/order";
+import { ThumbDownSharp } from "@material-ui/icons";
 
 const mapStateToProps = ({ order: { currentOrder } }) => ({
   order: currentOrder,
 });
 
 const urlDemandToSupply = config.hostedOnServer
-  ? "https://supply.team12.sweispring21.tk/api"
+  ? "https://demand.team12.sweispring21.tk/api"
   : "";
 
-// const coordinateRoute = [
-//   [-97.758917, 30.231775],
-//   [-97.758166, 30.232976],
-//   [-97.757988, 30.232891],
-//   [-97.757622, 30.232621],
-//   [-97.757501, 30.232374],
-//   [-97.757427, 30.23205],
-// ];
-const OrderPage = ({ order }) => {
-  const coordinateRoute = eval(order.routeObj.route);
-  const ETA = new Date(order.routeObj.ETA);
-  const formattedETA = `${ETA.getHours()}:${ETA.getMinutes()} ${
-    ETA.getMonth() + 1
-  }/${ETA.getDate()}/${ETA.getFullYear()}`;
+class OrderPage extends Component {
+  componentDidMount() {
+    const orderId = this.props.match.params.order_id;
+    console.log(orderId);
+    if (orderId !== undefined) {
+      this.props.getOrder(`_id=${orderId}`);
+    }
+  }
 
-  const updateVehicle = async (vehicle_status, current_location) => {
+  completeOrder = async (vehicle_status, current_location) => {
     try {
-      const response = await axios.post(`${urlDemandToSupply}/vehicle/update`, {
+      console.log("completing order -", this.props.order);
+      const response = await axios.post(`${urlDemandToSupply}/order/update`, {
         vehicle_status,
         current_location,
-        vehicle_id: order.routeObj.vehicle_id,
+        vehicle_id: this.props.order.routeObj.vehicle_id,
+        order_id: this.props.order._id,
+        order_status: "arrived",
       });
-      console.log(response.data.data);
+      this.props.getOrder(`_id=${this.props.order._id}`);
     } catch (err) {
       console.log(err);
       alert(err);
     }
   };
+  render() {
+    const coordinateRoute = eval(this.props.order.routeObj.route);
+    const ETA = new Date(this.props.order.routeObj.ETA);
+    const formattedETA = `${ETA.getHours()}:${ETA.getMinutes()} ${
+      ETA.getMonth() + 1
+    }/${ETA.getDate()}/${ETA.getFullYear()}`;
+    return (
+      <>
+        <p className="primarySize tc">Order Page</p>
+        <p className="secondarySize tc">
+          Confirmation# {this.props.order.publicId}
+        </p>
+        {this.props.order.status !== "arrived" ? (
+          <>
+            <p className="secondarySize tc">
+              Expected Time of Arrival: {formattedETA}
+            </p>
+            <div className="">
+              <Map
+                coordinateRoute={coordinateRoute}
+                completeOrder={this.completeOrder}
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <p className="secondarySize tc mt4">Vehicle has arrived!</p>
+            <p className="opaqueFont w-50 center">
+              Head over to the vehicle waiting outside, when prompted for a pin
+              please enter the pin below. Once the correct pin is entered the
+              vehicle compartment will open
+            </p>
+            <p className="primarySize green tc">
+              {this.props.order._id.substr(-4, 4)}
+            </p>
+          </>
+        )}
+      </>
+    );
+  }
+}
 
-  return (
-    <>
-      <p className="primarySize tc">Order Page</p>
-      <p className="secondarySize tc">Confirmation# {order.publicId}</p>
-      <p className="secondarySize tc">
-        Expected Time of Arrival: {formattedETA}
-      </p>
-      <div className="">
-        <Map coordinateRoute={coordinateRoute} updateVehicle={updateVehicle} />
-      </div>
-    </>
-  );
-};
-
-export default connect(mapStateToProps)(OrderPage);
+export default connect(mapStateToProps, { getOrder })(OrderPage);

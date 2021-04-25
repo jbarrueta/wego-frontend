@@ -24,7 +24,6 @@ const LandingPage = ({ user, logout, cookies }) => {
   const onClickHandler = (route) => {
     history.push(route);
   };
-  console.log(pet2vetGIF);
   return (
     <div className="landingPage">
       <p className="tc primarySize">{`Welcome back ${user.firstName}`}</p>

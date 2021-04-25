@@ -36,7 +36,6 @@ class VehicleList extends Component {
   }
 
   openDialog = (vehicle) => {
-    console.log(vehicle);
     this.setState({
       dialog: true,
       vehicle: vehicle === null ? null : { ...vehicle },
@@ -62,7 +61,6 @@ class VehicleList extends Component {
       license_plate: e.target[1].value,
       vehicle_status: e.target[2].value,
     };
-    console.log("Handle Submit", vehicleObj);
     this.props.addVehicle(this.state.fleetId, vehicleObj);
   };
 

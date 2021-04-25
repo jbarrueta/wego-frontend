@@ -16,7 +16,7 @@ export default function ServiceCard({
       className={`serviceCard br3 shadow-5 grow pointer ${className}`}
       onClick={onClickHandler}
       onMouseEnter={() => setImg(gif)}
-      onMouseLeave={() => setImg(image)}
+      onMouseLeave={() => setTimeout(() => setImg(image), 5000)}
     >
       <img src={img} alt="serviceGIF" height="300px" />
       <div className="cardFilter"></div>
