@@ -18,5 +18,6 @@ export const requestOrder = (requestObj) => async (dispatch) => {
   } catch (err) {
     console.log(`requestOrder action ERROR: ${err}`);
     alert(err.response.data.data.msg);
+    window.location.href = "/landing";
   }
 };

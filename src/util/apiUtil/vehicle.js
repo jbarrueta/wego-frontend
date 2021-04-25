@@ -8,3 +8,6 @@ export const getVehicleList = (fleetId) =>
 
 export const addVehicle = (fleetId, vehicle) =>
   axios.post(`${api}/${fleetId}/vehicle`, vehicle);
+
+export const updateVehicle = (vehicleId, vehicleObj) =>
+  axios.post(`${api}/vehicle/update`, { ...vehicleObj, vehicle_id: vehicleId });

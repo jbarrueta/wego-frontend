@@ -1,10 +1,16 @@
 import Map from "../../Components/Map/Map";
 import { connect } from "react-redux";
 import AnimatedCar from "../../Components/AnimatedCar/AnimatedCar";
+import axios from "axios";
+import config from "../../config/config";
 
 const mapStateToProps = ({ order: { currentOrder } }) => ({
   order: currentOrder,
 });
+
+const urlDemandToSupply = config.hostedOnServer
+  ? "https://supply.team12.sweispring21.tk/api"
+  : "";
 
 // const coordinateRoute = [
 //   [-97.758917, 30.231775],
@@ -16,13 +22,34 @@ const mapStateToProps = ({ order: { currentOrder } }) => ({
 // ];
 const OrderPage = ({ order }) => {
   const coordinateRoute = eval(order.routeObj.route);
-  console.log(coordinateRoute);
+  const ETA = new Date(order.routeObj.ETA);
+  const formattedETA = `${ETA.getHours()}:${ETA.getMinutes()} ${
+    ETA.getMonth() + 1
+  }/${ETA.getDate()}/${ETA.getFullYear()}`;
+
+  const updateVehicle = async (vehicle_status, current_location) => {
+    try {
+      const response = await axios.post(`${urlDemandToSupply}/vehicle/update`, {
+        vehicle_status,
+        current_location,
+        vehicle_id: order.routeObj.vehicle_id,
+      });
+      console.log(response.data.data);
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
+  };
+
   return (
     <>
       <p className="primarySize tc">Order Page</p>
       <p className="secondarySize tc">Confirmation# {order.publicId}</p>
+      <p className="secondarySize tc">
+        Expected Time of Arrival: {formattedETA}
+      </p>
       <div className="">
-        <Map coordinateRoute={coordinateRoute} />
+        <Map coordinateRoute={coordinateRoute} updateVehicle={updateVehicle} />
       </div>
     </>
   );

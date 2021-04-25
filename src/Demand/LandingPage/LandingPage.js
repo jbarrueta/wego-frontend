@@ -43,7 +43,7 @@ const LandingPage = ({ user, logout, cookies }) => {
           image={medicineImage}
           title="Pharma"
           description="Need a medication from your local pharmacy but too ill to go get it? Request an autonomous delivery straight to your home."
-          onClickHandler={() => onClickHandler("/pharma")}
+          onClickHandler={() => onClickHandler("/pharma/order/form")}
           className="ma2"
         />
         <ServiceCard
@@ -51,7 +51,7 @@ const LandingPage = ({ user, logout, cookies }) => {
           image={groceriesImage}
           title="Groceries"
           description="In need of a fast restock of groceries? Quick autonomous delivery is exactly what you need."
-          onClickHandler={() => onClickHandler("/groceries")}
+          onClickHandler={() => onClickHandler("/groceries/order/form")}
           className="ma2"
         />
         <ServiceCard
@@ -59,7 +59,7 @@ const LandingPage = ({ user, logout, cookies }) => {
           image={boatImage}
           title="Boat"
           description="Does your boat need servicing but you have no way to tow it? Strap your boat onto our autonomous truck and away we go."
-          onClickHandler={() => onClickHandler("/boat")}
+          onClickHandler={() => onClickHandler("/boat/order/form")}
           className="ma2"
         />
       </div>
