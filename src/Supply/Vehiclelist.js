@@ -30,11 +30,12 @@ class VehicleList extends Component {
       fleetId: this.props.match.params.fleetId,
     };
   }
-
+  // is executed after the first render only on the fleet manager side
   componentDidMount() {
     this.props.getVehicleList(this.state.fleetId);
   }
-
+  
+// It will used to open popup dialog box and clear data.
   openDialog = (vehicle) => {
     console.log(vehicle);
     this.setState({
@@ -42,6 +43,8 @@ class VehicleList extends Component {
       vehicle: vehicle === null ? null : { ...vehicle },
     });
   };
+
+// It will used to close popup dialog box and clear data.
   closeDialog = () => {
     this.setState({ dialog: false, vehicleId: null });
   };
@@ -55,6 +58,7 @@ class VehicleList extends Component {
     }
     this.closeDialog();
   };
+  // It will open popup dialog box to show new vehicle info form to add new vehicle.
 
   handleAdd = (e) => {
     const vehicleObj = {
