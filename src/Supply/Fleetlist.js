@@ -65,7 +65,7 @@ class FleetList extends Component {
         <button
           type="button"
           onClick={this.openDialog}
-          style={{ padding: "5px 100px", margin: 10 }}
+          
         >
           Add new Fleet
         </button>
@@ -97,14 +97,8 @@ class FleetList extends Component {
                 name="service_type"
                 placeholder="Enter Fleet Service Type"
               />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: 10,
-                }}
-              >
-                <button style={{ padding: "5px 100px" }} type="submit">
+              <div>
+                <button type="submit">
                   Save
                 </button>
               </div>

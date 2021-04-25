@@ -11,7 +11,7 @@ function Dialog(props) {
         }}
       >
         <div className="dialog-header">
-          <span style={{ fontSize: 18 }}>{props.title}</span>
+          <span>{props.title}</span>
           <span className="close-button" onClick={props.onClose}>
             Close
           </span>
