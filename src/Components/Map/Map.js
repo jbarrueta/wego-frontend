@@ -5,8 +5,7 @@ import MapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
 // import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 
 import { Component } from "react";
-
-
+import axios from "axios";
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken =
@@ -15,25 +14,22 @@ mapboxgl.accessToken =
 class Map extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       coordinateRoute: props.coordinateRoute,
       center: props.coordinateRoute[props.coordinateRoute.length - 1],
       zoom: 12,
     };
     this.mapContainer = React.createRef();
-    console.log("Constructor", this.state);
   }
   componentDidMount() {
     const { center, zoom, coordinateRoute } = this.state;
-    console.log("componentDidMount", this.state);
+    const { updateVehicle } = this.props;
     const map = new mapboxgl.Map({
       container: this.mapContainer.current, // container option  tells mapbox GL JS to render the map inside a specific DOM element.
       style: "mapbox://styles/mapbox/streets-v11",
       center: center,
       zoom: zoom,
     });
-
 
     map.on("load", function () {
       map.addSource("route", {
@@ -60,55 +56,58 @@ class Map extends Component {
           "line-width": 5,
         },
       });
-    
-      var data = {"geometry": {
-        "type": "Point", 
-        "coordinates": coordinateRoute[0]},
-        "type": "Feature", 
-        "properties": {}}
 
-    var i = 0;
-    var animate = setInterval(() => {
-      var data = {"geometry": {
-        "type": "Point", 
-        "coordinates": coordinateRoute[i]},
-        "type": "Feature", 
-        "properties": {}}
-      map.getSource("vehicle").setData(data)
-      map.flyTo({
-        center: data.geometry.coordinates,
-        speed: 0.5
-      })
-      i++;
-      if(i >= coordinateRoute.length){
-        clearInterval(animate);
-        alert("Your vehicle has arrived!")
-        // TODO: We will call the vehicle API to set the vehicle to available and request
-        // the next leg of the trip. When we call the vehicle api to set vehicle coordinates
-        // we will set it at the last coordinate to update in the DB
-        
-      }
+      var data = {
+        geometry: {
+          type: "Point",
+          coordinates: coordinateRoute[0],
+        },
+        type: "Feature",
+        properties: {},
+      };
 
-    }, 2000);
-    console.log("done")
-    map.addSource("vehicle", {
-      'type': 'geojson',
-        data: data
-    });
-    map.addLayer({
-      'id': 'vehicle',
-      'type': 'symbol',
-      'source': 'vehicle',
-      'layout': {
-        'icon-image': 'car-15'
-      }
-    })
-
-      
+      var i = 0;
+      var animate = setInterval(() => {
+        var data = {
+          geometry: {
+            type: "Point",
+            coordinates: coordinateRoute[i],
+          },
+          type: "Feature",
+          properties: {},
+        };
+        map.getSource("vehicle").setData(data);
+        map.flyTo({
+          center: data.geometry.coordinates,
+          speed: 0.5,
+        });
+        i++;
+        if (i >= coordinateRoute.length) {
+          clearInterval(animate);
+          alert("Your vehicle has arrived!");
+          // TODO: We will call the vehicle API to set the vehicle to available and request
+          // the next leg of the trip. When we call the vehicle api to set vehicle coordinates
+          // we will set it at the last coordinate to update in the DB
+          updateVehicle(
+            "available",
+            coordinateRoute[coordinateRoute.length - 1]
+          );
+        }
+      }, 2000);
+      map.addSource("vehicle", {
+        type: "geojson",
+        data: data,
       });
-
+      map.addLayer({
+        id: "vehicle",
+        type: "symbol",
+        source: "vehicle",
+        layout: {
+          "icon-image": "car-15",
+        },
+      });
+    });
   }
-
 
   render() {
     return (
@@ -120,7 +119,6 @@ class Map extends Component {
         <div ref={this.mapContainer} className="map-container" />
         {/* <div id="geocoder" class="geocoder"></div> */}
       </div>
-      
     );
   }
 }
