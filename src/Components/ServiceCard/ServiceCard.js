@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./ServiceCard.css";
-// import gif from "./pet2vet.gif";
 
 export default function ServiceCard({
   image,

@@ -30,11 +30,6 @@ class FleetList extends Component {
   componentDidMount() {
     this.props.getFleetList();
   }
-  //  history = useHistory();
-  //  { state, createFleet } = useUserStore();
-  //  fleetList = state.fleetList;
-  //  [dialog, setDialog] = React.useState(false);
-  //  [fleetForm, setFleetForm] = React.useState({});
 
   // this works when the components is being rendered by React Router, bypassing the component as a Component prop to a Route.
   handleRoute = (route) => {

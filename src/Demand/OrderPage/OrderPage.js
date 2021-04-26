@@ -1,11 +1,9 @@
 import Map from "../../Components/Map/Map";
 import { connect } from "react-redux";
-import AnimatedCar from "../../Components/AnimatedCar/AnimatedCar";
 import axios from "axios";
 import config from "../../config/config";
 import { Component } from "react";
 import { getOrder } from "../../actions/demand/order";
-import { ThumbDownSharp } from "@material-ui/icons";
 
 const mapStateToProps = ({ order: { currentOrder } }) => ({
   order: currentOrder,
@@ -18,7 +16,6 @@ const urlDemandToSupply = config.hostedOnServer
 class OrderPage extends Component {
   componentDidMount() {
     const orderId = this.props.match.params.order_id;
-    console.log(orderId);
     if (orderId !== undefined) {
       this.props.getOrder(`_id=${orderId}`);
     }
@@ -26,7 +23,6 @@ class OrderPage extends Component {
 
   completeOrder = async (vehicle_status, current_location) => {
     try {
-      console.log("completing order -", this.props.order);
       const response = await axios.post(`${urlDemandToSupply}/order/update`, {
         vehicle_status,
         current_location,
@@ -36,7 +32,6 @@ class OrderPage extends Component {
       });
       this.props.getOrder(`_id=${this.props.order._id}`);
     } catch (err) {
-      console.log(err);
       alert(err);
     }
   };
