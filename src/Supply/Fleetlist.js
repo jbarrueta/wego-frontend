@@ -5,6 +5,7 @@ import { Component } from "react";
 import { addFleet, getFleetList } from "../actions/supply/fleet";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import Button from "../Components/Button/Button";
 
 const mapStateToProps = ({ fleet: { fleetList }, session: { user } }) => ({
   user,
@@ -35,23 +36,21 @@ class FleetList extends Component {
   //  [dialog, setDialog] = React.useState(false);
   //  [fleetForm, setFleetForm] = React.useState({});
 
-
-
   // this works when the components is being rendered by React Router, bypassing the component as a Component prop to a Route.
   handleRoute = (route) => {
     this.props.history.push(route);
   };
-// It will used to open popup dialog box and clear data.
+  // It will used to open popup dialog box and clear data.
 
   openDialog = () => {
     this.setState({ dialog: true });
   };
-// It will used to close popup dialog box and clear data.
+  // It will used to close popup dialog box and clear data.
 
   closeDialog = () => {
     this.setState({ dialog: false });
   };
-// It will open popup dialog box to show new fleet info form to add new fleet with first name, service_type.
+  // It will open popup dialog box to show new fleet info form to add new fleet with first name, service_type.
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -65,19 +64,15 @@ class FleetList extends Component {
 
   render() {
     const { user, fleetList } = this.props;
-    // return fleet list page 
-    // wlecome statment 
-    // allow fleet manager to add new fleet 
+    // return fleet list page
+    // wlecome statment
+    // allow fleet manager to add new fleet
     return (
       <div className="fleet-page">
         <h1>Welcome Back {user.firstName}</h1>
-        <button
-          type="button"
-          onClick={this.openDialog}
-          
-        >
+        <Button type="button" onClick={this.openDialog} classNames="ma3">
           Add new Fleet
-        </button>
+        </Button>
         <div className="fleet-list">
           {fleetList.map((fleet, i) => (
             <div
@@ -100,14 +95,16 @@ class FleetList extends Component {
                 type="text"
                 name="fleet_name"
                 placeholder="Enter Fleet Name"
+                className="pa2 ma3"
               />
               <input
                 type="text"
                 name="service_type"
                 placeholder="Enter Fleet Service Type"
+                className="pa2 ma3"
               />
               <div>
-                <button type="submit">
+                <button type="submit" className="pa2 ma3">
                   Save
                 </button>
               </div>
