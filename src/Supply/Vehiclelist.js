@@ -30,18 +30,20 @@ class VehicleList extends Component {
       fleetId: this.props.match.params.fleetId,
     };
   }
-
+  // is executed after the first render only on the fleet manager side
   componentDidMount() {
     this.props.getVehicleList(this.state.fleetId);
   }
 
+  // It will used to open popup dialog box and clear data.
   openDialog = (vehicle) => {
-    console.log(vehicle);
     this.setState({
       dialog: true,
       vehicle: vehicle === null ? null : { ...vehicle },
     });
   };
+
+  // It will used to close popup dialog box and clear data.
   closeDialog = () => {
     this.setState({ dialog: false, vehicleId: null });
   };
@@ -55,6 +57,7 @@ class VehicleList extends Component {
     }
     this.closeDialog();
   };
+  // It will open popup dialog box to show new vehicle info form to add new vehicle.
 
   handleAdd = (e) => {
     const vehicleObj = {
@@ -62,7 +65,6 @@ class VehicleList extends Component {
       license_plate: e.target[1].value,
       vehicle_status: e.target[2].value,
     };
-    console.log("Handle Submit", vehicleObj);
     this.props.addVehicle(this.state.fleetId, vehicleObj);
   };
 
@@ -113,12 +115,12 @@ class VehicleList extends Component {
         {this.state.dialog && (
           <Dialog
             onClose={this.closeDialog}
-            title={this.state.vehicle ? "change status" : "Add Vehicle"}
+            title={this.state.vehicle ? "Change Status" : "Add Vehicle"}
           >
             <div>
               <form onSubmit={this.handleSubmit}>
                 <table cellSpacing="15">
-                  <tbody>
+                  <tbody className="w-60 center flex-column">
                     {this.state.vehicle === null && (
                       <>
                         <tr>

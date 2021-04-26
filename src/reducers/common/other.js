@@ -1,14 +1,19 @@
 import { CHANGE_LOADING_STATUS } from "../../actions/types";
 
 const initialState = {
-  loading: false,
+  isLoading: false,
+  loadMsg: "",
 };
 
 export default (state = initialState, { type, payload }) => {
   Object.freeze(state);
   switch (type) {
     case CHANGE_LOADING_STATUS:
-      return { ...state, loading: payload };
+      return {
+        ...state,
+        isLoading: payload.isLoading,
+        loadMsg: payload.loadMsg,
+      };
     default:
       return state;
   }

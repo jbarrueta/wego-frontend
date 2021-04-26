@@ -13,7 +13,6 @@ export default (state = initialState, { type, payload }) => {
   Object.freeze(state);
   switch (type) {
     case RECEIVE_ORDER:
-      console.log(payload.routeObj.ETA, "test");
       return {
         ...state,
         currentOrder: {
