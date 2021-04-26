@@ -2,13 +2,12 @@ import mapboxgl from "mapbox-gl/dist/mapbox-gl-csp";
 import React from "react";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
-// import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 
 import { Component } from "react";
+import config from "../../config/config";
 
 mapboxgl.workerClass = MapboxWorker;
-mapboxgl.accessToken =
-  "pk.eyJ1Ijoia2F5dGx5bmd1ZXJyZXJvIiwiYSI6ImNrbGd5ejMwMTB5cDQyd29paGZoYnE0dW4ifQ.FN8hXcvlYPaxkl0UdIatVQ";
+mapboxgl.accessToken = config.accessTokenMB;
 
 class Map extends Component {
   constructor(props) {
@@ -84,9 +83,6 @@ class Map extends Component {
         if (i >= coordinateRoute.length) {
           clearInterval(animate);
           alert("Your vehicle has arrived!");
-          // TODO: We will call the vehicle API to set the vehicle to available and request
-          // the next leg of the trip. When we call the vehicle api to set vehicle coordinates
-          // we will set it at the last coordinate to update in the DB
           completeOrder(
             "available",
             coordinateRoute[coordinateRoute.length - 1]
@@ -112,12 +108,7 @@ class Map extends Component {
   render() {
     return (
       <div>
-        {/* <div id="map"></div>
-        <div class="overlay">
-        <button id="replay">Replay</button>
-        </div> */}
         <div ref={this.mapContainer} className="map-container" />
-        {/* <div id="geocoder" class="geocoder"></div> */}
       </div>
     );
   }

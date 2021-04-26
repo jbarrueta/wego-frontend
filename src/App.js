@@ -62,7 +62,6 @@ class App extends Component {
           <OpenRoute exact path="/" component={HomePage} />
           <OpenRoute path="/login" component={() => <Login />} />
           <OpenRoute path="/registration" component={() => <Registration />} />
-          {/* TODO: add redux to LandingPage */}
           <ProtectedDemandRoute
             path="/landing"
             component={() => <LandingPage />}

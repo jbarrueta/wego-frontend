@@ -34,7 +34,6 @@ export const login = (user, cookies) => async (dispatch) => {
       2000
     );
   } catch (err) {
-    console.log(`login action ERROR: ${err}`);
     alert(err.response.data.data.msg);
     dispatch(
       loading({
@@ -67,7 +66,6 @@ export const register = (user, cookies) => async (dispatch) => {
       2000
     );
   } catch (err) {
-    console.log(`register action ERROR: ${err}`);
     alert(err.response.data.data.msg);
     dispatch(
       loading({

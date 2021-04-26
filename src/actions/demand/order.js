@@ -34,7 +34,6 @@ export const requestOrder = (requestObj) => async (dispatch) => {
       4000
     );
   } catch (err) {
-    console.log(`requestOrder action ERROR: ${err}`);
     alert(err.response.data.data.msg);
     window.location.href = "/landing";
     dispatch(
@@ -55,7 +54,6 @@ export const getOrder = (query) => async (dispatch) => {
       })
     );
     const response = await orderAPI.getOrders(query);
-    console.log(response.data.data);
     dispatch(receiveOrder(response.data.data[0]));
     setTimeout(
       () =>
@@ -68,7 +66,6 @@ export const getOrder = (query) => async (dispatch) => {
       2000
     );
   } catch (err) {
-    console.log(`getOrders action ERROR: ${err}`);
     alert(err.response.data.data.msg);
     dispatch(
       loading({

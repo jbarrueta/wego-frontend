@@ -149,14 +149,6 @@ class VehicleList extends Component {
                               : "available"
                           }
                           name="vehicle_status"
-                          // onChange={(e) => {
-                          //   this.setState((prevState) => ({
-                          //     vehicle: {
-                          //       ...prevState.vehicle,
-                          //       vehicle_status: e.target.value,
-                          //     },
-                          //   }));
-                          // }}
                         >
                           <option value={"available"}>Active</option>
                           <option

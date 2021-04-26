@@ -39,7 +39,6 @@ const OrderForm = ({ requestOrder, userId, order }) => {
     };
 
     await requestOrder(orderObj);
-    console.log(order);
     history.push(`/${params.service_type}/order/`);
   };
   return (

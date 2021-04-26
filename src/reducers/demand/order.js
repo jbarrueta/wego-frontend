@@ -22,7 +22,6 @@ export default (state = initialState, { type, payload }) => {
             ETA: new Date(payload.routeObj.ETA),
           },
         },
-        // currentOrder: "TEST",
       };
     case RECEIVE_ORDERS_LIST:
       return { ...state, orderList: payload };
