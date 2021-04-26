@@ -19,6 +19,10 @@ const mapStateToProps = ({ session: { user, loggedIn } }) => ({
 });
 
 const NavBar = ({ loggedIn, cookies, logout }) => {
+  const subdomain = config.hostedOnServer
+    ? window.location.hostname.split(".")[0]
+    : config.workingBranch;
+
   return (
     <div className="navBar flex justify-between pa3">
       <div>
@@ -30,7 +34,7 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           <Route path="/" component={Logo} />
         </Switch>
       </div>
-      {loggedIn && config.workingBranch == "demand" && (
+      {loggedIn && subdomain == "demand" && (
         <div className="flex items-center">
           <NavLink
             exact
@@ -83,7 +87,7 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           </div>
         </div>
       )}
-      {loggedIn && config.workingBranch == "supply" && (
+      {loggedIn && subdomain == "supply" && (
         <div className="flex items-center">
           <NavLink
             exact
