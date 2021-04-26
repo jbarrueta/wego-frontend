@@ -1,6 +1,9 @@
 import React from "react";
 import "./style.css";
 
+
+// this function hande the close popup dialog box 
+// this fumction recalled in fleetlist.js and vehiclelist.js
 function Dialog(props) {
   return (
     <div className="overlay" onClick={props.onClose}>
@@ -11,7 +14,7 @@ function Dialog(props) {
         }}
       >
         <div className="dialog-header">
-          <span style={{ fontSize: 18 }}>{props.title}</span>
+          <span>{props.title}</span>
           <span className="close-button" onClick={props.onClose}>
             Close
           </span>
