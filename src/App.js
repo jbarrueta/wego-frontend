@@ -57,7 +57,7 @@ class App extends Component {
             <NavBar user={this.props.user} cookies={this.props.cookies} />
           )}
         />
-        <div style={{ width: "100vw", height: "70px" }}></div>
+        <div style={{ width: "100vw", height: "100px" }}></div>
         <Switch>
           <OpenRoute exact path="/" component={HomePage} />
           <OpenRoute path="/login" component={() => <Login />} />

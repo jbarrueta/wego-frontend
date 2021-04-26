@@ -31,7 +31,7 @@ export const requestOrder = (requestObj) => async (dispatch) => {
             loadMsg: ``,
           })
         ),
-      5000
+      4000
     );
   } catch (err) {
     console.log(`requestOrder action ERROR: ${err}`);
@@ -51,7 +51,7 @@ export const getOrder = (query) => async (dispatch) => {
     dispatch(
       loading({
         isLoading: true,
-        loadMsg: `Loading your order`,
+        loadMsg: `Loading your order info`,
       })
     );
     const response = await orderAPI.getOrders(query);
@@ -65,7 +65,7 @@ export const getOrder = (query) => async (dispatch) => {
             loadMsg: ``,
           })
         ),
-      5000
+      2000
     );
   } catch (err) {
     console.log(`getOrders action ERROR: ${err}`);
