@@ -35,17 +35,23 @@ class FleetList extends Component {
   //  [dialog, setDialog] = React.useState(false);
   //  [fleetForm, setFleetForm] = React.useState({});
 
+
+
+  // this works when the components is being rendered by React Router, bypassing the component as a Component prop to a Route.
   handleRoute = (route) => {
     this.props.history.push(route);
   };
+// It will used to open popup dialog box and clear data.
 
   openDialog = () => {
     this.setState({ dialog: true });
   };
+// It will used to close popup dialog box and clear data.
 
   closeDialog = () => {
     this.setState({ dialog: false });
   };
+// It will open popup dialog box to show new fleet info form to add new fleet with first name, service_type.
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -59,13 +65,16 @@ class FleetList extends Component {
 
   render() {
     const { user, fleetList } = this.props;
+    // return fleet list page 
+    // wlecome statment 
+    // allow fleet manager to add new fleet 
     return (
       <div className="fleet-page">
         <h1>Welcome Back {user.firstName}</h1>
         <button
           type="button"
           onClick={this.openDialog}
-          style={{ padding: "5px 100px", margin: 10 }}
+          
         >
           Add new Fleet
         </button>
@@ -97,14 +106,8 @@ class FleetList extends Component {
                 name="service_type"
                 placeholder="Enter Fleet Service Type"
               />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: 10,
-                }}
-              >
-                <button style={{ padding: "5px 100px" }} type="submit">
+              <div>
+                <button type="submit">
                   Save
                 </button>
               </div>
