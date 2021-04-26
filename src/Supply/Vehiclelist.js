@@ -3,7 +3,11 @@ import "./style.css";
 import Dialog from "./Dialog";
 import { Component } from "react";
 import { connect } from "react-redux";
-import { addVehicle, getVehicleList } from "../actions/supply/vehicle";
+import {
+  addVehicle,
+  getVehicleList,
+  updateVehicle,
+} from "../actions/supply/vehicle";
 import PropTypes from "prop-types";
 
 const mapStateToProps = ({ vehicle: { vehicleList } }) => ({
@@ -14,6 +18,7 @@ class VehicleList extends Component {
   static propTypes = {
     vehicleList: PropTypes.arrayOf(PropTypes.object).isRequired,
     addVehicle: PropTypes.func.isRequired,
+    updateVehicle: PropTypes.func.isRequired,
     getVehicleList: PropTypes.func.isRequired,
   };
 
@@ -25,14 +30,20 @@ class VehicleList extends Component {
       fleetId: this.props.match.params.fleetId,
     };
   }
-
+  // is executed after the first render only on the fleet manager side
   componentDidMount() {
     this.props.getVehicleList(this.state.fleetId);
   }
 
+  // It will used to open popup dialog box and clear data.
   openDialog = (vehicle) => {
-    this.setState({ dialog: true, vehicle });
+    this.setState({
+      dialog: true,
+      vehicle: vehicle === null ? null : { ...vehicle },
+    });
   };
+
+  // It will used to close popup dialog box and clear data.
   closeDialog = () => {
     this.setState({ dialog: false, vehicleId: null });
   };
@@ -46,6 +57,7 @@ class VehicleList extends Component {
     }
     this.closeDialog();
   };
+  // It will open popup dialog box to show new vehicle info form to add new vehicle.
 
   handleAdd = (e) => {
     const vehicleObj = {
@@ -53,7 +65,6 @@ class VehicleList extends Component {
       license_plate: e.target[1].value,
       vehicle_status: e.target[2].value,
     };
-    console.log("Handle Submit", vehicleObj);
     this.props.addVehicle(this.state.fleetId, vehicleObj);
   };
 
@@ -62,9 +73,7 @@ class VehicleList extends Component {
     const vehicleObj = {
       vehicle_status: e.target[0].value,
     };
-    console.log("Handle Update", vehicleObj);
-    // TODO: implement updateVehicle redux + backend
-    // this.props.updateVehicle(vehicleObj);
+    this.props.updateVehicle(this.state.vehicle._id, vehicleObj);
   };
 
   render() {
@@ -86,7 +95,7 @@ class VehicleList extends Component {
           </thead>
           <tbody>
             {this.props.vehicleList.map((vehicle, i) => (
-              <tr key={i}>
+              <tr key={vehicle._id}>
                 <td>{vehicle.vehicle_model}</td>
                 <td>{vehicle.license_plate}</td>
                 <td>{vehicle.vehicle_status}</td>
@@ -106,12 +115,12 @@ class VehicleList extends Component {
         {this.state.dialog && (
           <Dialog
             onClose={this.closeDialog}
-            title={this.state.vehicle ? "change status" : "Add Vehicle"}
+            title={this.state.vehicle ? "Change Status" : "Add Vehicle"}
           >
             <div>
               <form onSubmit={this.handleSubmit}>
                 <table cellSpacing="15">
-                  <tbody>
+                  <tbody className="w-60 center flex-column">
                     {this.state.vehicle === null && (
                       <>
                         <tr>
@@ -134,22 +143,14 @@ class VehicleList extends Component {
 
                       <td>
                         <select
-                          value={
+                          defaultValue={
                             this.state.vehicle
                               ? this.state.vehicle.vehicle_status
-                              : ""
+                              : "available"
                           }
                           name="vehicle_status"
                         >
-                          <option
-                            value={
-                              this.state.vehicle
-                                ? this.state.vehicle.vehicle_status
-                                : "Available"
-                            }
-                          >
-                            Active
-                          </option>
+                          <option value={"available"}>Active</option>
                           <option
                             value="inactive"
                             disabled={
@@ -193,6 +194,8 @@ class VehicleList extends Component {
   }
 }
 
-export default connect(mapStateToProps, { addVehicle, getVehicleList })(
-  VehicleList
-);
+export default connect(mapStateToProps, {
+  addVehicle,
+  updateVehicle,
+  getVehicleList,
+})(VehicleList);

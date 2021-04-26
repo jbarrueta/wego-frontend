@@ -1,11 +1,6 @@
 .map-container {
-    position: absolute;
-    width: 50%;
-    height: 50%;
-
-  }
-
-  
-  .duration {
-    font-size: 2em;
+  margin: auto;
+  width: 50%;
+  height: 50%;
+  padding: 175px;
   }

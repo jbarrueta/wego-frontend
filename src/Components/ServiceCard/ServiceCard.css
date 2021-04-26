@@ -1,0 +1,44 @@
+.serviceCard {
+  width: 300px;
+  height: 300px;
+  /* filter: blur(5px); */
+  position: relative;
+  overflow: hidden;
+}
+
+.serviceTitle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 800ms;
+}
+
+.serviceCard:hover .serviceTitle {
+  transform: translate(-50px, -115px);
+}
+.serviceCard:hover .serviceDescription {
+  opacity: 100%;
+  transition: opacity 1s;
+}
+.serviceCard:hover .cardFilter {
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: background-color 1s;
+}
+
+.serviceDescription {
+  position: absolute;
+  top: 75px;
+  right: 10px;
+  /* transform: translate(-50%, -50%); */
+  opacity: 0;
+}
+
+.cardFilter {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+}

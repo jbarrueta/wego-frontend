@@ -6,8 +6,8 @@
 .fleet-list {
   width: 40%;
   margin: auto;
-  background-color: #abbba3;
   border: 0px solid black;
+  color: #f8f9fe
 }
 .fleet-item {
   padding: 20px;
@@ -15,14 +15,17 @@
   margin-bottom: 4px;
   cursor: pointer;
   border-radius: 10px;
+  background-color: rgba(52, 82, 104, 1);
+  color: #f8f9fe
 }
 
-.vehicle-list td,
+.vehicle-list td, 
 .vehicle-list th,
-table.vehicle-list {
-  border: 1px solid rgba(59, 57, 57, 0.527);
-  background-color: #abbba3;
-}
+table.vehicle-list { 
+   border: 1px solid rgba(59, 57, 57, 0.527); 
+   background-color: rgba(52, 82, 104, 1); 
+   color: #f8f9fe
+} 
 
 table {
   width: 100%;

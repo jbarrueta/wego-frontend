@@ -18,12 +18,24 @@ code {
   font-family: "Satisfy", cursive;
 }
 
+.header {
+  font-size: 35px;
+}
+
 .primarySize {
   font-size: 30px;
 }
 
+.primaryColor {
+  color: #333;
+}
+
 .secondarySize {
   font-size: 20px;
+}
+
+.secondaryColor {
+  color: #e2e2e2;
 }
 
 .opaqueFont {

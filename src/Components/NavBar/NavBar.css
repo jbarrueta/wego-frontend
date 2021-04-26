@@ -1,5 +1,8 @@
 .navBar {
-  height: 75px;
+  height: 100px;
   width: 100%;
-  background-color: #abbba3;
+  background: linear-gradient(rgb(52, 82, 104), rgba(52, 82, 104, 0));
+  position: fixed;
+  top: 0;
+  backdrop-filter: blur(15px);
 }

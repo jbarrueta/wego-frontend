@@ -2,41 +2,32 @@ import mapboxgl from "mapbox-gl/dist/mapbox-gl-csp";
 import React from "react";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
-import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 
 import { Component } from "react";
+import config from "../../config/config";
 
 mapboxgl.workerClass = MapboxWorker;
-mapboxgl.accessToken =
-  "pk.eyJ1Ijoia2F5dGx5bmd1ZXJyZXJvIiwiYSI6ImNrbGd5ejMwMTB5cDQyd29paGZoYnE0dW4ifQ.FN8hXcvlYPaxkl0UdIatVQ";
+mapboxgl.accessToken = config.accessTokenMB;
 
 class Map extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       coordinateRoute: props.coordinateRoute,
       center: props.coordinateRoute[props.coordinateRoute.length - 1],
       zoom: 12,
     };
     this.mapContainer = React.createRef();
-    console.log("Constructor", this.state);
   }
   componentDidMount() {
     const { center, zoom, coordinateRoute } = this.state;
-    console.log("componentDidMount", this.state);
+    const { completeOrder } = this.props;
     const map = new mapboxgl.Map({
       container: this.mapContainer.current, // container option  tells mapbox GL JS to render the map inside a specific DOM element.
       style: "mapbox://styles/mapbox/streets-v11",
       center: center,
       zoom: zoom,
     });
-    // var geocoder = new MapboxGeocoder({
-    //   accessToken: mapboxgl.accessToken,
-    //   mapboxgl: mapboxgl
-    //   });
-
-    //   document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
     map.on("load", function () {
       map.addSource("route", {
@@ -60,7 +51,55 @@ class Map extends Component {
         },
         paint: {
           "line-color": "black",
-          "line-width": 8,
+          "line-width": 5,
+        },
+      });
+
+      var data = {
+        geometry: {
+          type: "Point",
+          coordinates: coordinateRoute[0],
+        },
+        type: "Feature",
+        properties: {},
+      };
+
+      var i = 0;
+      var animate = setInterval(() => {
+        var data = {
+          geometry: {
+            type: "Point",
+            coordinates: coordinateRoute[i],
+          },
+          type: "Feature",
+          properties: {},
+        };
+        map.getSource("vehicle").setData(data);
+        map.flyTo({
+          center: data.geometry.coordinates,
+          speed: 0.5,
+        });
+        i++;
+        if (i >= coordinateRoute.length) {
+          clearInterval(animate);
+          alert("Your vehicle has arrived!");
+          completeOrder(
+            "available",
+            coordinateRoute[coordinateRoute.length - 1]
+          );
+        }
+      }, 2000);
+      map.addSource("vehicle", {
+        type: "geojson",
+        data: data,
+      });
+      map.addLayer({
+        id: "vehicle",
+        type: "symbol",
+        source: "vehicle",
+        layout: {
+          "icon-image": "car-15",
+          "icon-size": 1.5,
         },
       });
     });
@@ -70,7 +109,6 @@ class Map extends Component {
     return (
       <div>
         <div ref={this.mapContainer} className="map-container" />
-        {/* <div id="geocoder" class="geocoder"></div> */}
       </div>
     );
   }
