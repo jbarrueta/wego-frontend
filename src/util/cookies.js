@@ -1,7 +1,13 @@
+import config from "../config/config";
+
+const subdomain = config.hostedOnServer
+  ? window.location.hostname.split(".")[0]
+  : config.workingBranch;
+
 export const cookiesOptions = {
   path: "/",
   maxAge: 1800,
-  domain: ".team12.sweispring21.tk",
+  domain: `${subdomain}.team12.sweispring21.tk`,
   secure: true,
   httpOnly: false,
 };
