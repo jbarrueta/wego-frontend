@@ -35,11 +35,11 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
         </Switch>
       </div>
       {loggedIn && subdomain == "demand" && (
-        <div className="flex items-center">
+        <div className="flex items-center white">
           <NavLink
             exact
             to="/landing"
-            className="secondarySize black link dim pointer ph3 "
+            className="secondarySize white link dim pointer ph3 "
             activeClassName="b"
           >
             Home
@@ -47,7 +47,7 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           <NavLink
             exact
             to="/pet2vet"
-            className="secondarySize black link dim pointer ph3 "
+            className="secondarySize white link dim pointer ph3 "
             activeClassName="b"
           >
             Pet2Vet
@@ -55,7 +55,7 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           <NavLink
             exact
             to="/pharma/order/form"
-            className="secondarySize black link dim pointer ph3 "
+            className="secondarySize white link dim pointer ph3 "
             activeClassName="b"
           >
             Pharma
@@ -63,7 +63,7 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           <NavLink
             exact
             to="/groceries/order/form"
-            className="secondarySize black link dim pointer ph3 "
+            className="secondarySize white link dim pointer ph3 "
             activeClassName="b"
           >
             Groceries
@@ -71,7 +71,7 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           <NavLink
             exact
             to="/boat/order/form"
-            className="secondarySize black link dim pointer ph3 "
+            className="secondarySize white link dim pointer ph3 "
             activeClassName="b"
           >
             Boat
@@ -79,7 +79,7 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           <div>
             <div
               onClick={() => logout(cookies)}
-              className="f6 flex flex-column items-center black link dim pointer ph3"
+              className="f6 flex flex-column items-center white link dim pointer ph3"
             >
               <LockIcon className="red pointer grow dim" />
               Logout
@@ -88,11 +88,11 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
         </div>
       )}
       {loggedIn && subdomain == "supply" && (
-        <div className="flex items-center">
+        <div className="flex white items-center">
           <NavLink
             exact
             to="/fleet-management"
-            className="secondarySize black link dim pointer ph3 "
+            className="secondarySize white link dim pointer ph3 "
             activeClassName="b"
           >
             Home
@@ -100,7 +100,7 @@ const NavBar = ({ loggedIn, cookies, logout }) => {
           <div>
             <div
               onClick={() => logout(cookies)}
-              className="f6 flex flex-column items-center black link dim pointer ph3"
+              className="f6 flex flex-column items-center white link dim pointer ph3"
             >
               <LockIcon className="red pointer grow dim" />
               Logout
