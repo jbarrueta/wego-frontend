@@ -1,7 +1,14 @@
+import config from "../config/config";
+
+const subdomain = config.hostedOnServer
+  ? window.location.hostname.split(".")[0]
+  : config.workingBranch;
+
 export const cookiesOptions = {
   path: "/",
   maxAge: 1800,
-  secure: false,
+  domain: `${subdomain}.${config.baseURL}`,
+  secure: true,
   httpOnly: false,
 };
 
