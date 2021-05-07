@@ -7,7 +7,7 @@ const subdomain = config.hostedOnServer
 export const cookiesOptions = {
   path: "/",
   maxAge: 1800,
-  domain: `${subdomain}.team12.sweispring21.tk`,
+  domain: `${subdomain}.${config.baseURL}`,
   secure: true,
   httpOnly: false,
 };
