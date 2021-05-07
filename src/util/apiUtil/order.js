@@ -1,7 +1,7 @@
 import axios from "axios";
 import config from "../../config/config";
 
-const api = config.hostedOnServer ? "/api" : "";
+const api = config.hostedOnServer ? `https://demand.${config.baseURL}/api` : "";
 
 export const requestOrder = (requestObj) =>
   axios.post(`${api}/order/request`, requestObj);

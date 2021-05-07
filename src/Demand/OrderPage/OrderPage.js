@@ -10,7 +10,7 @@ const mapStateToProps = ({ order: { currentOrder } }) => ({
 });
 
 const urlDemandToSupply = config.hostedOnServer
-  ? "https://demand.team12.sweispring21.tk/api"
+  ? `https://demand.${config.baseURL}/api`
   : "";
 
 class OrderPage extends Component {

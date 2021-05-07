@@ -1,7 +1,11 @@
 import axios from "axios";
 import config from "../../config/config";
 
-const api = config.hostedOnServer ? "/api" : "";
+const subdomain = config.hostedOnServer
+  ? window.location.hostname.split(".")[0]
+  : config.workingBranch;
+
+const api = config.hostedOnServer ? `https://${subdomain}.${config.baseURL}/api` : "";
 
 export const login = (user) => axios.post(`${api}/login`, user);
 
